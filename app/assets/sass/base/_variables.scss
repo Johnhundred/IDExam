@@ -1,0 +1,37 @@
+/* --------------- VARIABLES & FONTS--------------- */
+
+@import url('https://fonts.googleapis.com/css?family=Lato|Roboto');
+
+
+/* -- NOTE: These fonts are not set in stone, just something random I picked -- */
+$bodyFont : 'Lato',sans-serif;
+$headlineFont : 'Roboto', sans-serif;
+
+/* ----- COLORS ----- */
+
+/* -- NOTE: These colors are not set in stone, just something random I had saved -- */
+$primaryColor : #FFFFFF;
+$secondaryColor : #048872;
+$tertiaryColor : #048872;
+
+/* ----- GUTTERS ----- */
+
+$gutter-v: 2vh;
+$gutter-v-half: 1vh;
+$gutter-h: 2vw;
+$gutter-h-half: 1vw;
+
+
+
+body {
+  background-color: $primaryColor;
+}
+
+/* ----- Media Query Variables ----- */
+$screen-xs-max: 767px;
+$screen-sm-min: 768px;
+$screen-sm-max: 991px;
+$screen-md-min: 992px;
+$screen-md-max: 1199px;
+$screen-lg-min: 1200px;
+

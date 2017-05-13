@@ -1,7 +1,14 @@
-* {
-  background-color: red;
-}
+/*
+Name: Interface Design - Exam
+Author: Ralf Patrik Blaga, Johannes Skjærbæk
+Author URI: particledesigns.dk
+Description: KEA Web Development 2017 Spring, 2nd semester Interface Design Exam project.
+Version: 1.0
+*/
 
-body {
-  color: green;
-}
+@import "base/variables";
+@import "base/global";
+
+@import "layout/admin";
+@import "layout/index";
+@import "layout/mobile";
