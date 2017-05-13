@@ -1,0 +1,1 @@
+jQuery("document").ready(function(){jQuery.noConflict();console.log("Page loaded and ready.")});

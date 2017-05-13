@@ -12,11 +12,11 @@ jQuery("document").ready(function() {
 
 
 
-    // FUNCTIONS - ADMIN
-
-
-
     // FUNCTIONS - GENERAL
+
+
+
+    // FUNCTIONS - ADMIN
 
 
 
