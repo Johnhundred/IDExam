@@ -7,6 +7,7 @@ jQuery("document").ready(function() {
     // VARS & SETUP
     var jAdmins = {"admins":[]};
     var bAdmin;
+    var sAdminTemplate = '<div class="admin-list-item"><h3>Name: {{name}}</h3><h3>ID: {{id}}</h3></div>';
 
     handleAdminSetup();
 
@@ -20,6 +21,14 @@ jQuery("document").ready(function() {
         e.preventDefault();
         //pass element (form) to handler function
         adminHandleLogin(this);
+    });
+
+    //Admin create
+    $("#lblAdminCreate").submit(function(e){
+        //prevent submitting of form & page reload, there is no backend to submit to
+        e.preventDefault();
+        //pass element (form) to handler function
+        adminHandleCreate(this);
     });
 
     //when an admin pick link is clicked, fade picker windows
@@ -62,6 +71,9 @@ jQuery("document").ready(function() {
             bAdmin = false;
         } else {
             bAdmin = localStorage.bAdmin;
+            if(bAdmin.toLowerCase() === "true"){
+                bAdmin = true;
+            }
         }
 
         return bAdmin;
@@ -79,7 +91,9 @@ jQuery("document").ready(function() {
         for(var i = 0; i < iCounter; i++){
             if(jAdmins.admins[i].username == sUsername && jAdmins.admins[i].password == sPassword){
                 localStorage.bAdmin = true;
+                populateAdminList();
                 //placeholder, use animation instead?
+                $(".wdw-admin-picker").fadeIn();
                 console.log("Admin login successful.");
                 break;
             } else {
@@ -91,8 +105,24 @@ jQuery("document").ready(function() {
         $(oElement).children("#lblAdminPassword").val("");
     }
 
+    function adminHandleCreate(oElement){
+        var sUsername = $(oElement).children("#lblAdminNewUsername").val();
+        var sPassword = $(oElement).children("#lblAdminNewPassword").val();
+
+        getAdmins();
+        var jAdmin = {};
+        jAdmin.id = generateStringId();
+        jAdmin.username = sUsername;
+        jAdmin.password = sPassword;
+        setAdmins(jAdmin);
+
+        $(oElement).children("#lblAdminNewUsername").val("");
+        $(oElement).children("#lblAdminNewPassword").val("");
+        populateAdminList();
+    }
+
     function adminPicker(oElement){
-        //if(checkAdmin() == true){
+        if(checkAdmin() == true){
             $(".pick-window").css("display", "none");
 
             //placeholder - implement css animation loader figure before showing each list
@@ -101,10 +131,24 @@ jQuery("document").ready(function() {
             } else if($(oElement).hasClass("admin-partner-list")){
                 $(".wdw-partner-list").fadeIn();
             } else if($(oElement).hasClass("admin-admin-list")){
+                populateAdminList();
                 $(".wdw-admin-list").fadeIn();
                 console.log("admin");
             }
-        //}
+        }
+    }
+
+    function populateAdminList(){
+        var sHtml = "";
+        getAdmins();
+
+        var iCounter = jAdmins.admins.length;
+        for(var i = 0; i < iCounter; i++){
+            sHtml += sAdminTemplate.replace("{{name}}", jAdmins.admins[i].username); //'<div class="admin-list-item"><h3>Name: {{name}}</h3><h3>ID: {{id}}</h3></div>'
+            sHtml = sHtml.replace("{{id}}", jAdmins.admins[i].id);
+        }
+
+        $(".wdw-admin-list div").empty().append(sHtml);
     }
 
     //generate (not really) random string to be used as an id
@@ -114,6 +158,20 @@ jQuery("document").ready(function() {
         sResult = sResult + $.now().toString();
         return sResult;
     }
+
+    //500ms interval for admin display purposes
+    setInterval(function(){
+        if(checkAdmin() == true){
+            $(".wdw-admin-picker").fadeIn();
+        }
+    }, 500);
+
+    //10000ms interval for admin display purposes
+    setInterval(function(){
+        if(checkAdmin() == true){
+            populateAdminList();
+        }
+    }, 10000);
 
 });
 
