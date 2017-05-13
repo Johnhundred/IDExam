@@ -30,8 +30,38 @@
 
 <body>
 
-<div id="admin-main" class="container-fluid">
-    <h1>Hello Admin</h1>
+<div class="container-fluid page-wrapper">
+    <div id="wdw-admin" class="container">
+        <h1>Hello Admin</h1>
+        <div class="wdw-login">
+            <form id="lblAdminLogin">
+                <input id="lblAdminUsername" type="text" placeholder="Username...">
+                <input id="lblAdminPassword" type="password" placeholder="Password...">
+                <input id="btnAdminLogin" type="submit" value="LOGIN">
+            </form>
+        </div>
+
+        <div class="wdw-admin-picker">
+            <h3>Please pick what you would like to administrate:</h3>
+            <ul>
+                <li><a href="#" class="admin-event-list">Events</a></li>
+                <li><a href="#" class="admin-partner-list">Partners</a></li>
+                <li><a href="#" class="admin-admin-list">Admins</a></li>
+            </ul>
+        </div>
+
+        <div class="wdw-admin-list pick-window">
+            <h4>Test</h4>
+        </div>
+
+        <div class="wdw-event-list pick-window">
+            <h4>Test</h4>
+        </div>
+
+        <div class="wdw-partner-list pick-window">
+            <h4>Test</h4>
+        </div>
+    </div>
 </div>
 
 <!-- jQuery is ubiquitous, almost 100% likely to already be cached, therefore no bundling. Already minified. -->
