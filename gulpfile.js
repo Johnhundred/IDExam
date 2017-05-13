@@ -55,6 +55,11 @@ gulp.task("fontHandler", function(){
         .pipe(gulp.dest('dist/assets/fonts'))
 });
 
+gulp.task("templateHandler", function(){
+    return gulp.src('app/assets/templates/*')
+        .pipe(gulp.dest('dist/assets/templates'))
+});
+
 gulp.task("imageHandler", function(){
     return gulp.src('app/assets/img/**/*.+(png|jpg|jpeg|gif|svg)')
         .pipe(imageMin({
@@ -78,6 +83,6 @@ gulp.task("build", function(cb){
     del(['dist/*']);
     // Compiles SCSS, bundles/minifies CSS and JS, transfers fonts, minifies & transfers images, in that order.
     console.log("Log: Building files.");
-    runSequence('sass', 'htmlHandler', 'htmlMinifier', 'fontHandler', 'imageHandler', cb);
+    runSequence('sass', 'htmlHandler', 'htmlMinifier', 'fontHandler', 'templateHandler', 'imageHandler', cb);
 });
 
