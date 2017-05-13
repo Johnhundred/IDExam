@@ -8,5 +8,5 @@
 /app/**/*.map
 /app/**/*.css
 node_modules
-# dist
+dist
 
