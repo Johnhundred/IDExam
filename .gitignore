@@ -1,0 +1,12 @@
+# gulp-specific gitignore
+
+.idea
+.sass-cache
+/app/.idea
+/app/.sass-cache
+/app/**/.sass-cache
+/app/**/*.map
+/app/**/*.css
+node_modules
+# dist
+
