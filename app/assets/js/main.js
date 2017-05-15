@@ -118,13 +118,13 @@ jQuery("document").ready(function() {
             setTimeout(function(){
                 $("#lblAdminLogin span").fadeOut();
                 bAdminMessageAnimationRunning = false;
-            }, 2000);
+            }, 1000);
         } else {
             $("#lblAdminLogin span").text("Login failed.").fadeIn();
             setTimeout(function(){
                 $("#lblAdminLogin span").fadeOut();
                 bAdminMessageAnimationRunning = false;
-            }, 2000);
+            }, 1000);
         }
     }
 
