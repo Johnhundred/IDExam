@@ -7,6 +7,7 @@ jQuery("document").ready(function() {
     // VARS & SETUP
     var jAdmins = {"admins":[]};
     var bAdmin;
+    var bAdminMessageAnimationRunning = false;
     var sAdminTemplate = '<div class="admin-list-item"><h3>Name: {{name}}</h3><h3>ID: {{id}}</h3></div>';
 
     handleAdminSetup();
@@ -94,15 +95,37 @@ jQuery("document").ready(function() {
                 populateAdminList();
                 //placeholder, use animation instead?
                 $(".wdw-admin-picker").fadeIn();
-                console.log("Admin login successful.");
+                if(!bAdminMessageAnimationRunning){
+                    adminLoginMessage(true);
+                }
                 break;
             } else {
                 localStorage.bAdmin = false;
+                if(!bAdminMessageAnimationRunning){
+                    adminLoginMessage(false);
+                }
             }
         }
 
         $(oElement).children("#lblAdminUsername").val("");
         $(oElement).children("#lblAdminPassword").val("");
+    }
+
+    function adminLoginMessage(bStatus){
+        bAdminMessageAnimationRunning = true;
+        if(bStatus){
+            $("#lblAdminLogin span").text("Login successful.").fadeIn();
+            setTimeout(function(){
+                $("#lblAdminLogin span").fadeOut();
+                bAdminMessageAnimationRunning = false;
+            }, 2000);
+        } else {
+            $("#lblAdminLogin span").text("Login failed.").fadeIn();
+            setTimeout(function(){
+                $("#lblAdminLogin span").fadeOut();
+                bAdminMessageAnimationRunning = false;
+            }, 2000);
+        }
     }
 
     function adminHandleCreate(oElement){
@@ -163,10 +186,13 @@ jQuery("document").ready(function() {
     setInterval(function(){
         if(checkAdmin() == true){
             $(".wdw-admin-picker").fadeIn();
+        } else {
+            $(".wdw-admin-picker").fadeOut();
+            $(".pick-window").fadeOut();
         }
     }, 500);
 
-    //10000ms interval for admin display purposes
+    //10.000ms interval for admin display purposes
     setInterval(function(){
         if(checkAdmin() == true){
             populateAdminList();

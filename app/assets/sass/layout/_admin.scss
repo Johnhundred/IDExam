@@ -6,6 +6,13 @@
   .wdw-admin-picker {
     display: none;
   }
+  .wdw-login{
+    #lblAdminLogin {
+      span {
+        display: none;
+      }
+    }
+  }
   .pick-window {
     display: none;
   }
