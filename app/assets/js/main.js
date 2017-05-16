@@ -12,7 +12,10 @@ jQuery("document").ready(function() {
     var sEditAdminTemplate = '<div class="modal-admin-edit-form-container"><form><input type="text" placeholder="Name..." value="{{name}}"><input type="text" placeholder="ID..." value="{{id}}"><input type="submit" value="SUBMIT"></form></div>';
 
     var jEvents = {"events":[]};
-    var sEventTemplate = '';
+    var sEventTemplate = '<div class="event-list-item"><div class="event-item-left"><img src="{{img}}"></div><div class="event-item-right"></div><i class="fa fa-pencil edit-item" aria-hidden="true"></i><i class="fa fa-trash-o delete-item" aria-hidden="true"></i></div>';
+
+    var jPartners = {"partners":[]};
+    var sPartnerTemplate = '<div class="partner-item round-corners"><form class="lblPartnerCreate"><input class="lblPartnerId" type="hidden" value="{{id}}"><div><input class="lblPartnerImage" type="text" placeholder="{{img}}"></div><div><div><input class="lblPartnerName" type="text" placeholder="{{name}}"><input class="lblPartnerCEO" type="text" placeholder="{{ceo}}"><input class="lblPartnerWebsite" type="text" placeholder="{{website}}"><input class="lblPartnerHeadquarters" type="text" placeholder="{{headquarters}}"><input class="btnPartnerCreate" type="submit" value="CREATE"></div><div><textarea class="lblPartnerDescription" placeholder="{{description}}"></textarea></div></div></form><i class="fa fa-trash-o delete-item" aria-hidden="true"></i></div>';
 
     handleAdminSetup();
 
@@ -34,6 +37,14 @@ jQuery("document").ready(function() {
         e.preventDefault();
         //pass element (form) to handler function
         adminHandleCreate(this);
+    });
+
+    //Event create
+    $("#lblEventCreate").submit(function(e){
+        //prevent submitting of form & page reload, there is no backend to submit to
+        e.preventDefault();
+        //pass element (form) to handler function
+        eventHandleCreate(this);
     });
 
     //when an admin pick link is clicked, fade picker windows
@@ -159,6 +170,44 @@ jQuery("document").ready(function() {
         return true;
     }
 
+    function getPartners(){
+        if(localStorage.getItem("sPartners") !== null) {
+            jPartners = JSON.parse(localStorage.sPartners);
+        }
+    }
+
+    function setPartner(jPartner){
+        getPartners();
+        jPartners.partners.push(jPartner);
+        localStorage.sPartners = JSON.stringify(jPartners);
+        return true;
+    }
+
+    function editPartner(jPartner){
+        getPartners();
+        var iCounter = jPartners.partners.length;
+        for(var i = 0; i < iCounter; i++){
+            if(jPartners.partners[i].id == jPartner.id){
+                jPartners.partners[i] = jPartner;
+            }
+        }
+        localStorage.sPartners = JSON.stringify(jPartners);
+        return true;
+    }
+
+    function deletePartner(sId){
+        getPartners();
+        var iCounter = jPartners.partners.length;
+        for(var i = 0; i < iCounter; i++){
+            if(jPartners.partners[i].id == sId){
+                jPartners.partners.splice(i, 1);
+            }
+        }
+        localStorage.sPartners = JSON.stringify(jPartners);
+        populatePartnerList();
+        return true;
+    }
+
     //handles admin login form submit - receives form element & children as oElement
     function adminHandleLogin(oElement){
         //gets input values from username & password fields
@@ -224,6 +273,33 @@ jQuery("document").ready(function() {
         populateAdminList();
     }
 
+    function eventHandleCreate(oElement){
+        var sImage = $(oElement).children("#lblEventImage").val();
+        var sTitle = $(oElement).children("#lblEventTitle").val();
+        var sOrganizer = $(oElement).children("#lblEventOrganizer").val();
+        var sDate = $(oElement).children("#lblEventDate").val();
+        var sPrice = $(oElement).children("#lblEventPrice").val();
+        var sLocation = $(oElement).children("#lblEventLocation").val();
+        var sPartner = $(oElement).children("#lblEventPartner").value;
+        var sDescription = $(oElement).children("#lblEventDescription").val();
+
+        getEvents();
+        var jEvent = {};
+        jEvent.id = generateStringId();
+        jEvent.image = sImage;
+        jEvent.title = sTitle;
+        jEvent.organizer = sOrganizer;
+        jEvent.date = sDate;
+        jEvent.price = sPrice;
+        jEvent.location = sLocation;
+        jEvent.partner = sPartner;
+        jEvent.description = sDescription;
+        setEvent(jEvent);
+
+        $(oElement).children().val("");
+        populateEventList();
+    }
+
     function adminPicker(oElement){
         if(checkAdmin() == true){
             $(".pick-window").css("display", "none");
@@ -233,6 +309,7 @@ jQuery("document").ready(function() {
                 populateEventList();
                 $(".wdw-event-list").fadeIn();
             } else if($(oElement).hasClass("admin-partner-list")){
+                populatePartnerList();
                 $(".wdw-partner-list").fadeIn();
             } else if($(oElement).hasClass("admin-admin-list")){
                 populateAdminList();
@@ -265,6 +342,24 @@ jQuery("document").ready(function() {
         }
 
         $(".wdw-event-list div").empty().append(sHtml);
+    }
+
+    function populatePartnerList(){
+        var sHtml = "";
+        getPartners();
+
+        var iCounter = jPartners.partners.length;
+        for(var i = 0; i < iCounter; i++){
+            sHtml += sPartnerTemplate.replace("{{id}}", jPartners.partners[i].id);
+            sHtml = sHtml.replace("{{img}}", jPartners.partners[i].img);
+            sHtml = sHtml.replace("{{name}}", jPartners.partners[i].name);
+            sHtml = sHtml.replace("{{ceo}}", jPartners.partners[i].ceo);
+            sHtml = sHtml.replace("{{website}}", jPartners.partners[i].website);
+            sHtml = sHtml.replace("{{headquarters}}", jPartners.partners[i].headquarters);
+            sHtml = sHtml.replace("{{description}}", jPartners.partners[i].description);
+        }
+
+        $(".wdw-partner-list div.partner-list").empty().append(sHtml);
     }
 
     function editItem(oElement){

@@ -35,5 +35,56 @@
   .wdw-admin-list {
 
   }
+  .wdw-partner-list > div {
+
+  }
+  .wdw-partner-list {
+    width: 75%;
+    h4 {
+      text-align: center;
+    }
+    .wdw-partner-create {
+      background-color: $secondaryColor;
+      color: $textColor;
+      padding: $gutter-v-double $gutter-h-double;
+      form {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        div:nth-child(2) {
+          width: 70%;
+          div:nth-child(1){
+            display: flex;
+            flex-direction: row;
+            align-items: flex-end;
+            input:first-child {
+              margin-right: auto;
+            }
+          }
+          div:nth-child(2){
+            margin-top: $gutter-v;
+            width: auto;
+            textarea {
+              width: 99.4%;
+              resize: none;
+            }
+          }
+        }
+      }
+      form > div:nth-child(1) {
+        width: 20%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+    }
+    .partner-list {
+      .partner-list-item {
+        background-color: $secondaryColor;
+        color: $textColor;
+        padding: $gutter-v $gutter-h;
+      }
+    }
+  }
 }
 
