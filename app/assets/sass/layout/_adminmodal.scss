@@ -1,0 +1,27 @@
+
+
+/* --------------- ADMIN MODAL --------------- */
+
+#wdw-admin-modal {
+  #modal-content {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    #modal-top {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+    #modal-middle {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+    #modal-bottom {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+  }
+}
+

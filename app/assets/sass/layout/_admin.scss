@@ -16,5 +16,24 @@
   .pick-window {
     display: none;
   }
+  .wdw-admin-list > div {
+    padding-top: $gutter-v-double;
+    .admin-list-item {
+      display: flex;
+      flex-direction: row;
+      justify-content: space-around;
+      background-color: $secondaryColor;
+      margin-bottom: $gutter-v-double;
+      padding: $gutter-v;
+      h3 {
+        margin: 0;
+      }
+      i {
+      }
+    }
+  }
+  .wdw-admin-list {
+
+  }
 }
 
