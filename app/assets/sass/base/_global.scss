@@ -20,3 +20,9 @@ p,input,footer,button,label {
   transform: translateX(-50%);
 }
 
+.round-corners {
+  -webkit-border-radius: 10px;
+  -moz-border-radius: 10px;
+  border-radius: 10px;
+}
+

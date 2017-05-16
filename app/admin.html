@@ -62,22 +62,49 @@
             <h4>Events</h4>
             <h5>Create New Event</h5>
             <form id="lblEventCreate">
-                <input id="lblEventImage" type="file" placeholder="Image Upload">
+                <input id="lblEventImage" type="text" placeholder="Image URL">
                 <input id="lblEventTitle" type="text" placeholder="Event Title">
-                <input id="lblEventOrganizer" type="text" placeholder="Event Organizer">
-                <input id="lblEventDate" type="date" placeholder="Event Date/Time">
-                <input id="" type="text" placeholder="">
-                <input id="" type="text" placeholder="">
-                <input id="" type="text" placeholder="">
-                <input id="" type="text" placeholder="">
+                <input id="lblEventOrganizer" type="text" placeholder="Organizer">
+                <input id="lblEventDate" type="date" placeholder="Date">
+                <input id="lblEventPrice" type="text" placeholder="Price">
+                <input id="lblEventLocation" type="text" placeholder="Location">
+                <select id="lblEventPartner" onchange="alert(this.value)" multiple>
+                    <option selected="selected">Partner 1</option>
+                    <option>Partner 2</option>
+                </select>
+                <input type="submit" id="btnEventCreate" value="CREATE">
+                <textarea id="lblEventDescription" placeholder="Write Event Description here..."></textarea>
             </form>
             <div>
                 <p>Loading...</p>
             </div>
         </div>
 
-        <div class="wdw-partner-list pick-window">
-            <h4>Partners</h4>
+        <div class="wdw-partner-list pick-window margin-center">
+            <h4 class="margin-center">Add Partner</h4>
+            <div class="wdw-partner-create round-corners">
+                <form id="lblPartnerCreate">
+                    <div>
+                        <input id="lblPartnerImage" type="text" placeholder="Image URL">
+                    </div>
+                    <div>
+                        <div>
+                            <input id="lblPartnerName" type="text" placeholder="Partner Name">
+                            <input id="lblPartnerCEO" type="text" placeholder="CEO">
+                            <input id="lblPartnerWebsite" type="text" placeholder="Website">
+                            <input id="lblPartnerHeadquarters" type="text" placeholder="Headquarters">
+                            <input id="btnPartnerCreate" type="submit" value="CREATE">
+                        </div>
+                        <div>
+                            <textarea id="lblPartnerDescription" placeholder="Write Partner Description here..."></textarea>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <h4 class="margin-center">List of Partners</h4>
+            <div class="partner-list">
+                <p>Loading...</p>
+            </div>
         </div>
     </div>
 </div>
