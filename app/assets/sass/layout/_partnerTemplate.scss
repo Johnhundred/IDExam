@@ -1,0 +1,54 @@
+/* --------------- Partner Template --------------- */
+
+.partner-logo {
+  width: 20%;
+
+  img {
+    width: 100%;
+  }
+}
+
+.partner-title {
+  background-image: url("https://images.pexels.com/photos/1984/black-and-white-city-man-people.jpg?w=1260&h=750&auto=compress&cs=tinysrgb");
+  background-size: cover;
+  background-position: center;
+
+  h2 {
+    background-color: $tertiaryColor;
+    display: inline-block;
+    padding: 1%;
+    border-radius: 10px;
+  }
+}
+
+.partner-content {
+  margin-top: $gutter-v-double;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+
+  .partner-desc {
+    width: 60%;
+
+    h3 {
+      font-size: 2em;
+    }
+  }
+
+  .partner-info {
+
+    h3 {
+      font-size: 2em;
+    }
+    width: 30%;
+    text-align: center;
+  }
+}
+
+footer {
+  height: 2px;
+  width: 100vw;
+  background-color: $secondaryColor;
+  position: fixed;
+  bottom: 0;
+}
