@@ -1,2 +1,15 @@
 /* --------------- INDEX --------------- */
 
+.search-span {
+  color:green;
+  float: right;
+  margin-right: 6px;
+  margin-top: -20px;
+  position: relative;
+  z-index: 2;
+}
+
+input {
+  font-family: "FontAwesome";
+  padding-left: 1%;
+}
