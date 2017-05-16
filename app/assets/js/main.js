@@ -8,7 +8,8 @@ jQuery("document").ready(function() {
     var jAdmins = {"admins":[]};
     var bAdmin;
     var bAdminMessageAnimationRunning = false;
-    var sAdminTemplate = '<div class="admin-list-item"><h3>Name: {{name}}</h3><h3>ID: {{id}}</h3></div>';
+    var sAdminTemplate = '<div class="admin-list-item"><h3>Name: {{name}}</h3><h3>ID: {{id}}</h3><i class="fa fa-pencil edit-item" aria-hidden="true"></i><i class="fa fa-trash-o delete-item" aria-hidden="true"></i></div>';
+    var sEditAdminTemplate = '<div class="modal-admin-edit-form-container"><form><input type="text" placeholder="Name..." value="{{name}}"><input type="text" placeholder="ID..." value="{{id}}"><input type="submit" value="SUBMIT"></form></div>';
 
     handleAdminSetup();
 
@@ -37,6 +38,19 @@ jQuery("document").ready(function() {
         adminPicker(this);
     });
 
+    $(document).on("click", ".edit-item", function(){
+        editItem($(this).parent());
+    });
+
+    $(document).on("click", ".delete-item", function(){
+        deleteItem($(this).parent());
+    });
+
+    $(document).on("click", '.modal-admin-edit-form-container form input[type="submit"]', function(e){
+        e.preventDefault();
+        adminEditModalSubmitHandler($(this).parent());
+    });
+
     // FUNCTIONS - GENERAL
 
 
@@ -51,7 +65,6 @@ jQuery("document").ready(function() {
             localStorage.sAdmins = JSON.stringify(jAdmins);
         } else {
             jAdmins = JSON.parse(localStorage.sAdmins);
-            console.log(jAdmins);
         }
     }
 
@@ -63,6 +76,31 @@ jQuery("document").ready(function() {
         jAdmins = JSON.parse(localStorage.sAdmins);
         jAdmins.admins.push(jAdmin);
         localStorage.sAdmins = JSON.stringify(jAdmins);
+        return true;
+    }
+
+    function editAdmin(jAdmin){
+        jAdmins = JSON.parse(localStorage.sAdmins);
+        var iCounter = jAdmins.admins.length;
+        for(var i = 0; i < iCounter; i++){
+            if(jAdmins.admins[i].id == jAdmin.id){
+                jAdmins.admins[i] = jAdmin;
+            }
+        }
+        localStorage.sAdmins = JSON.stringify(jAdmins);
+        return true;
+    }
+
+    function deleteAdmin(sId){
+        getAdmins();
+        var iCounter = jAdmins.admins.length;
+        for(var i = 0; i < iCounter; i++){
+            if(jAdmins.admins[i].id == sId){
+                jAdmins.admins.splice(i, 1);
+            }
+        }
+        localStorage.sAdmins = JSON.stringify(jAdmins);
+        populateAdminList();
         return true;
     }
 
@@ -118,12 +156,13 @@ jQuery("document").ready(function() {
             setTimeout(function(){
                 $("#lblAdminLogin span").fadeOut();
                 bAdminMessageAnimationRunning = false;
+                $(".wdw-login").fadeOut();
             }, 1000);
         } else {
             $("#lblAdminLogin span").text("Login failed.").fadeIn();
             setTimeout(function(){
                 $("#lblAdminLogin span").fadeOut();
-                bAdminMessageAnimationRunning = false;
+                bAdminMessageAnimationRunning = true;
             }, 1000);
         }
     }
@@ -156,7 +195,6 @@ jQuery("document").ready(function() {
             } else if($(oElement).hasClass("admin-admin-list")){
                 populateAdminList();
                 $(".wdw-admin-list").fadeIn();
-                console.log("admin");
             }
         }
     }
@@ -172,6 +210,65 @@ jQuery("document").ready(function() {
         }
 
         $(".wdw-admin-list div").empty().append(sHtml);
+    }
+
+    function editItem(oElement){
+        if($(oElement).hasClass("admin-list-item")){
+            var sName = $(oElement).children("h3:first-child").text();
+            sName = sName.split(": ");
+            sName = sName[1];
+            var sId = $(oElement).children("h3:nth-child(2)").text();
+            sId = sId.split(": ");
+            sId = sId[1];
+
+            var sHtml = "";
+            sHtml += sEditAdminTemplate.replace("{{name}}", sName).replace("{{id}}", sId);
+
+            $("#modal-top h2").empty().text("Edit Admin: " + sName);
+            $("#modal-middle").empty().append(sHtml);
+        }
+    }
+
+    function deleteItem(oElement){
+        if($(oElement).hasClass("admin-list-item")){
+            var sId = $(oElement).children("h3:nth-child(2)").text();
+            sId = sId.split(": ");
+            sId = sId[1];
+            console.log(sId);
+
+            swal({
+                title: "Are you sure?",
+                text: "You will not be able to recover this admin user!",
+                type: "warning",
+                showCancelButton: true,
+                confirmButtonColor: "#DD6B55",
+                confirmButtonText: "Yes, delete it!",
+                closeOnConfirm: false
+            },
+            function(){
+                swal("Deleted!", "The admin user has been deleted.", "success");
+                deleteAdmin(sId);
+            });
+        }
+    }
+
+    function adminEditModalSubmitHandler(oElement){
+        var sName = $(oElement).children("input:first-child").val();
+        var sId = $(oElement).children("input:nth-child(2)").val();
+        var jAdmin = {};
+
+        getAdmins();
+        var iCounter = jAdmins.admins.length;
+        for(var i = 0; i < iCounter; i++){
+            if(jAdmins.admins[i].id == sId){
+                jAdmin = jAdmins.admins[i];
+            }
+        }
+        jAdmin.username = sName;
+        jAdmin.id = sId;
+
+        editAdmin(jAdmin);
+        populateAdminList();
     }
 
     //generate (not really) random string to be used as an id
