@@ -11,6 +11,9 @@ jQuery("document").ready(function() {
     var sAdminTemplate = '<div class="admin-list-item"><h3>Name: {{name}}</h3><h3>ID: {{id}}</h3><i class="fa fa-pencil edit-item" aria-hidden="true"></i><i class="fa fa-trash-o delete-item" aria-hidden="true"></i></div>';
     var sEditAdminTemplate = '<div class="modal-admin-edit-form-container"><form><input type="text" placeholder="Name..." value="{{name}}"><input type="text" placeholder="ID..." value="{{id}}"><input type="submit" value="SUBMIT"></form></div>';
 
+    var jEvents = {"events":[]};
+    var sEventTemplate = '';
+
     handleAdminSetup();
 
 
@@ -118,6 +121,44 @@ jQuery("document").ready(function() {
         return bAdmin;
     }
 
+    function getEvents(){
+        if(localStorage.getItem("sEvents") !== null) {
+            jEvents = JSON.parse(localStorage.sEvents);
+        }
+    }
+
+    function setEvent(jEvent){
+        getEvents();
+        jEvents.events.push(jEvent);
+        localStorage.sEvents = JSON.stringify(jEvents);
+        return true;
+    }
+
+    function editEvent(jEvent){
+        getEvents();
+        var iCounter = jEvents.events.length;
+        for(var i = 0; i < iCounter; i++){
+            if(jEvents.events[i].id == jEvent.id){
+                jEvents.events[i] = jEvent;
+            }
+        }
+        localStorage.sEvents = JSON.stringify(jEvents);
+        return true;
+    }
+
+    function deleteEvent(sId){
+        getEvents();
+        var iCounter = jEvents.events.length;
+        for(var i = 0; i < iCounter; i++){
+            if(jEvents.events[i].id == sId){
+                jEvents.events.splice(i, 1);
+            }
+        }
+        localStorage.sEvents = JSON.stringify(jEvents);
+        populateEventList()
+        return true;
+    }
+
     //handles admin login form submit - receives form element & children as oElement
     function adminHandleLogin(oElement){
         //gets input values from username & password fields
@@ -189,6 +230,7 @@ jQuery("document").ready(function() {
 
             //placeholder - implement css animation loader figure before showing each list
             if($(oElement).hasClass("admin-event-list")){
+                populateEventList();
                 $(".wdw-event-list").fadeIn();
             } else if($(oElement).hasClass("admin-partner-list")){
                 $(".wdw-partner-list").fadeIn();
@@ -205,11 +247,24 @@ jQuery("document").ready(function() {
 
         var iCounter = jAdmins.admins.length;
         for(var i = 0; i < iCounter; i++){
-            sHtml += sAdminTemplate.replace("{{name}}", jAdmins.admins[i].username); //'<div class="admin-list-item"><h3>Name: {{name}}</h3><h3>ID: {{id}}</h3></div>'
+            sHtml += sAdminTemplate.replace("{{name}}", jAdmins.admins[i].username);
             sHtml = sHtml.replace("{{id}}", jAdmins.admins[i].id);
         }
 
         $(".wdw-admin-list div").empty().append(sHtml);
+    }
+
+    function populateEventList(){
+        var sHtml = "";
+        getEvents();
+
+        var iCounter = jEvents.events.length;
+        for(var i = 0; i < iCounter; i++){
+            sHtml += sEventTemplate.replace("{{name}}", jEvents.events[i].name);
+            sHtml = sHtml.replace("{{id}}", jEvents.events[i].id);
+        }
+
+        $(".wdw-event-list div").empty().append(sHtml);
     }
 
     function editItem(oElement){
@@ -226,6 +281,7 @@ jQuery("document").ready(function() {
 
             $("#modal-top h2").empty().text("Edit Admin: " + sName);
             $("#modal-middle").empty().append(sHtml);
+            $("#wdw-admin-modal").fadeIn();
         }
     }
 
@@ -269,6 +325,7 @@ jQuery("document").ready(function() {
 
         editAdmin(jAdmin);
         populateAdminList();
+        $("#wdw-admin-modal").fadeOut();
     }
 
     //generate (not really) random string to be used as an id
