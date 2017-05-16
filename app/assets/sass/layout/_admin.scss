@@ -12,6 +12,9 @@
         display: none;
       }
     }
+    .admin-logout {
+      display: none;
+    }
   }
   .pick-window {
     display: none;
@@ -38,12 +41,12 @@
   .wdw-partner-list > div {
 
   }
-  .wdw-partner-list {
+  .wdw-partner-list, .wdw-event-list {
     width: 75%;
     h4 {
       text-align: center;
     }
-    .wdw-partner-create {
+    .wdw-partner-create, .partner-item, .wdw-event-create, .event-item {
       background-color: $secondaryColor;
       color: $textColor;
       padding: $gutter-v-double $gutter-h-double;
@@ -78,11 +81,9 @@
         justify-content: center;
       }
     }
-    .partner-list {
-      .partner-list-item {
-        background-color: $secondaryColor;
-        color: $textColor;
-        padding: $gutter-v $gutter-h;
+    .partner-list, .event-list {
+      .partner-item, .event-item {
+        margin-bottom: $gutter-v-double;
       }
     }
   }

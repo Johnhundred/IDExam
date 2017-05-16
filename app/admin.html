@@ -34,6 +34,7 @@
                 <input id="btnAdminLogin" type="submit" value="LOGIN">
                 <span>Login status.</span>
             </form>
+            <a href="#" class="admin-logout">Logout</a>
         </div>
 
         <div class="wdw-admin-picker">
@@ -58,24 +59,31 @@
             </div>
         </div>
 
-        <div class="wdw-event-list pick-window">
-            <h4>Events</h4>
-            <h5>Create New Event</h5>
-            <form id="lblEventCreate">
-                <input id="lblEventImage" type="text" placeholder="Image URL">
-                <input id="lblEventTitle" type="text" placeholder="Event Title">
-                <input id="lblEventOrganizer" type="text" placeholder="Organizer">
-                <input id="lblEventDate" type="date" placeholder="Date">
-                <input id="lblEventPrice" type="text" placeholder="Price">
-                <input id="lblEventLocation" type="text" placeholder="Location">
-                <select id="lblEventPartner" onchange="alert(this.value)" multiple>
-                    <option selected="selected">Partner 1</option>
-                    <option>Partner 2</option>
-                </select>
-                <input type="submit" id="btnEventCreate" value="CREATE">
-                <textarea id="lblEventDescription" placeholder="Write Event Description here..."></textarea>
-            </form>
-            <div>
+        <div class="wdw-event-list pick-window margin-center">
+            <h4 class="margin-center">Add Event</h4>
+            <div class="wdw-event-create round-corners">
+                <form id="lblEventCreate">
+                    <div>
+                        <input id="lblEventImage" type="text" placeholder="Image URL">
+                    </div>
+                    <div>
+                        <div>
+                            <input id="lblEventTitle" type="text" placeholder="Event Title">
+                            <input id="lblEventOrganizer" type="text" placeholder="Organizer">
+                            <input id="lblEventDate" type="date" placeholder="Date">
+                            <input id="lblEventPrice" type="text" placeholder="Price">
+                            <input id="lblEventLocation" type="text" placeholder="Location">
+                            <a href="#">Partners</a>
+                            <input type="submit" id="btnEventCreate" value="CREATE">
+                        </div>
+                        <div>
+                            <textarea id="lblEventDescription" placeholder="Write Event Description here..."></textarea>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <h4 class="margin-center">List of Events</h4>
+            <div class="event-list">
                 <p>Loading...</p>
             </div>
         </div>

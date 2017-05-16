@@ -12,10 +12,10 @@ jQuery("document").ready(function() {
     var sEditAdminTemplate = '<div class="modal-admin-edit-form-container"><form><input type="text" placeholder="Name..." value="{{name}}"><input type="text" placeholder="ID..." value="{{id}}"><input type="submit" value="SUBMIT"></form></div>';
 
     var jEvents = {"events":[]};
-    var sEventTemplate = '<div class="event-list-item"><div class="event-item-left"><img src="{{img}}"></div><div class="event-item-right"></div><i class="fa fa-pencil edit-item" aria-hidden="true"></i><i class="fa fa-trash-o delete-item" aria-hidden="true"></i></div>';
+    var sEventTemplate = '<div class="event-item round-corners"><form class="lblEventCreate"><div><input class="lblEventImage" type="text" value="{{img}}"></div><div><div><input class="lblEventTitle" type="text" value="{{title}}"><input class="lblEventOrganizer" type="text" value="{{organizer}}"><input class="lblEventDate" type="date" value="{{date}}"><input class="lblEventPrice" type="text" value="{{price}}"><input class="lblEventLocation" type="text" value="{{location}}"><a href="#">{{partners}}</a><input type="submit" class="btnEventCreate" value="CREATE"></div><div><textarea class="lblEventDescription">{{description}}</textarea></div></div><input class="lblEventId" type="hidden" value="{{id}}"></form><i class="fa fa-trash-o delete-item" aria-hidden="true"></i></div>';
 
     var jPartners = {"partners":[]};
-    var sPartnerTemplate = '<div class="partner-item round-corners"><form class="lblPartnerCreate"><input class="lblPartnerId" type="hidden" value="{{id}}"><div><input class="lblPartnerImage" type="text" placeholder="{{img}}"></div><div><div><input class="lblPartnerName" type="text" placeholder="{{name}}"><input class="lblPartnerCEO" type="text" placeholder="{{ceo}}"><input class="lblPartnerWebsite" type="text" placeholder="{{website}}"><input class="lblPartnerHeadquarters" type="text" placeholder="{{headquarters}}"><input class="btnPartnerCreate" type="submit" value="CREATE"></div><div><textarea class="lblPartnerDescription" placeholder="{{description}}"></textarea></div></div></form><i class="fa fa-trash-o delete-item" aria-hidden="true"></i></div>';
+    var sPartnerTemplate = '<div class="partner-item round-corners"><form class="lblPartnerCreate"><div><input class="lblPartnerImage" type="text" value="{{img}}"></div><div><div><input class="lblPartnerName" type="text" value="{{name}}"><input class="lblPartnerCEO" type="text" value="{{ceo}}"><input class="lblPartnerWebsite" type="text" value="{{website}}"><input class="lblPartnerHeadquarters" type="text" value="{{headquarters}}"><input class="btnPartnerCreate" type="submit" value="SUBMIT"></div><div><textarea class="lblPartnerDescription">{{description}}</textarea></div></div><input class="lblPartnerId" type="hidden" value="{{id}}"></form><i class="fa fa-trash-o delete-item" aria-hidden="true"></i></div>';
 
     handleAdminSetup();
 
@@ -47,13 +47,25 @@ jQuery("document").ready(function() {
         eventHandleCreate(this);
     });
 
+    //Event create
+    $("#lblPartnerCreate").submit(function(e){
+        //prevent submitting of form & page reload, there is no backend to submit to
+        e.preventDefault();
+        //pass element (form) to handler function
+        partnerHandleCreate(this);
+    });
+
     //when an admin pick link is clicked, fade picker windows
     $(".wdw-admin-picker ul li a").click(function(){
         adminPicker(this);
     });
 
-    $(document).on("click", ".edit-item", function(){
+    $(document).on("click", ".admin-list-item .edit-item", function(){
         editItem($(this).parent());
+    });
+
+    $(document).on("submit", ".lblPartnerCreate", function(){
+        editItem(this);
     });
 
     $(document).on("click", ".delete-item", function(){
@@ -63,6 +75,10 @@ jQuery("document").ready(function() {
     $(document).on("click", '.modal-admin-edit-form-container form input[type="submit"]', function(e){
         e.preventDefault();
         adminEditModalSubmitHandler($(this).parent());
+    });
+
+    $(".admin-logout").click(function(){
+        localStorage.bAdmin = false;
     });
 
     // FUNCTIONS - GENERAL
@@ -246,7 +262,10 @@ jQuery("document").ready(function() {
             setTimeout(function(){
                 $("#lblAdminLogin span").fadeOut();
                 bAdminMessageAnimationRunning = false;
-                $(".wdw-login").fadeOut();
+                $(".wdw-login form").fadeOut();
+                setTimeout(function(){
+                    $(".admin-logout").fadeIn();
+                }, 750);
             }, 1000);
         } else {
             $("#lblAdminLogin span").text("Login failed.").fadeIn();
@@ -274,30 +293,53 @@ jQuery("document").ready(function() {
     }
 
     function eventHandleCreate(oElement){
-        var sImage = $(oElement).children("#lblEventImage").val();
-        var sTitle = $(oElement).children("#lblEventTitle").val();
-        var sOrganizer = $(oElement).children("#lblEventOrganizer").val();
-        var sDate = $(oElement).children("#lblEventDate").val();
-        var sPrice = $(oElement).children("#lblEventPrice").val();
-        var sLocation = $(oElement).children("#lblEventLocation").val();
-        var sPartner = $(oElement).children("#lblEventPartner").value;
-        var sDescription = $(oElement).children("#lblEventDescription").val();
+        var sImage = $(oElement).find("#lblEventImage").val();
+        var sTitle = $(oElement).find("#lblEventTitle").val();
+        var sOrganizer = $(oElement).find("#lblEventOrganizer").val();
+        var sDate = $(oElement).find("#lblEventDate").val();
+        var sPrice = $(oElement).find("#lblEventPrice").val();
+        var sLocation = $(oElement).find("#lblEventLocation").val();
+        var sPartner = "wat";
+        var sDescription = $(oElement).find("#lblEventDescription").val();
 
         getEvents();
         var jEvent = {};
         jEvent.id = generateStringId();
-        jEvent.image = sImage;
+        jEvent.img = sImage;
         jEvent.title = sTitle;
         jEvent.organizer = sOrganizer;
         jEvent.date = sDate;
         jEvent.price = sPrice;
         jEvent.location = sLocation;
-        jEvent.partner = sPartner;
+        jEvent.partners = sPartner;
         jEvent.description = sDescription;
         setEvent(jEvent);
 
         $(oElement).children().val("");
         populateEventList();
+    }
+
+    function partnerHandleCreate(oElement){
+        var sImage = $(oElement).find("#lblPartnerImage").val();
+        var sName = $(oElement).find("#lblPartnerName").val();
+        var sCeo = $(oElement).find("#lblPartnerCEO").val();
+        var sWebsite = $(oElement).find("#lblPartnerWebsite").val();
+        var sHeadquarters = $(oElement).find("#lblPartnerHeadquarters").val();
+        var sDescription = $(oElement).find("#lblPartnerDescription").val();
+
+        getPartners();
+        var jPartner = {};
+        jPartner.id = generateStringId();
+        jPartner.img = sImage;
+        jPartner.ceo = sCeo;
+        jPartner.website = sWebsite;
+        jPartner.headquarters = sHeadquarters;
+        jPartner.description = sDescription;
+        jPartner.name = sName;
+        setPartner(jPartner);
+
+        $(oElement).children().val("");
+        populatePartnerList();
     }
 
     function adminPicker(oElement){
@@ -337,11 +379,18 @@ jQuery("document").ready(function() {
 
         var iCounter = jEvents.events.length;
         for(var i = 0; i < iCounter; i++){
-            sHtml += sEventTemplate.replace("{{name}}", jEvents.events[i].name);
-            sHtml = sHtml.replace("{{id}}", jEvents.events[i].id);
+            sHtml += sEventTemplate.replace("{{id}}", jEvents.events[i].id);
+            sHtml = sHtml.replace("{{img}}", jEvents.events[i].img);
+            sHtml = sHtml.replace("{{title}}", jEvents.events[i].title);
+            sHtml = sHtml.replace("{{organizer}}", jEvents.events[i].organizer);
+            sHtml = sHtml.replace("{{date}}", jEvents.events[i].date);
+            sHtml = sHtml.replace("{{price}}", jEvents.events[i].price);
+            sHtml = sHtml.replace("{{location}}", jEvents.events[i].location);
+            sHtml = sHtml.replace("{{partners}}", jEvents.events[i].partners);
+            sHtml = sHtml.replace("{{description}}", jEvents.events[i].description);
         }
 
-        $(".wdw-event-list div").empty().append(sHtml);
+        $(".wdw-event-list div.event-list").empty().append(sHtml);
     }
 
     function populatePartnerList(){
@@ -378,6 +427,28 @@ jQuery("document").ready(function() {
             $("#modal-middle").empty().append(sHtml);
             $("#wdw-admin-modal").fadeIn();
         }
+        if($(oElement).hasClass("lblPartnerCreate")){
+            var sId = $(oElement).find(".lblPartnerId").val();
+            var sImage = $(oElement).find(".lblPartnerImage").val();
+            var sName = $(oElement).find(".lblPartnerName").val();
+            var sCeo = $(oElement).find(".lblPartnerCEO").val();
+            var sWebsite = $(oElement).find(".lblPartnerWebsite").val();
+            var sHeadquarters = $(oElement).find(".lblPartnerHeadquarters").val();
+            var sDescription = $(oElement).find(".lblPartnerDescription").val();
+
+            var jPartner = {};
+            jPartner.id = sId;
+            jPartner.img = sImage;
+            jPartner.ceo = sCeo;
+            jPartner.website = sWebsite;
+            jPartner.headquarters = sHeadquarters;
+            jPartner.description = sDescription;
+            jPartner.name = sName;
+
+            editPartner(jPartner);
+            $(oElement).
+            populatePartnerList();
+        }
     }
 
     function deleteItem(oElement){
@@ -400,6 +471,24 @@ jQuery("document").ready(function() {
                 swal("Deleted!", "The admin user has been deleted.", "success");
                 deleteAdmin(sId);
             });
+        }
+        if($(oElement).hasClass("partner-item")){
+            var sId = $(oElement).find('input[type="hidden"]').val();
+            console.log(sId);
+
+            swal({
+                    title: "Are you sure?",
+                    text: "You will not be able to recover this admin user!",
+                    type: "warning",
+                    showCancelButton: true,
+                    confirmButtonColor: "#DD6B55",
+                    confirmButtonText: "Yes, delete it!",
+                    closeOnConfirm: false
+                },
+                function(){
+                    swal("Deleted!", "The admin user has been deleted.", "success");
+                    deletePartner(sId);
+                });
         }
     }
 
@@ -435,18 +524,15 @@ jQuery("document").ready(function() {
     setInterval(function(){
         if(checkAdmin() == true){
             $(".wdw-admin-picker").fadeIn();
+            $("#lblAdminLogin").fadeOut();
+            $(".admin-logout").fadeIn();
         } else {
             $(".wdw-admin-picker").fadeOut();
             $(".pick-window").fadeOut();
+            $(".admin-logout").fadeOut();
+            $("#lblAdminLogin").fadeIn();
         }
     }, 500);
-
-    //10.000ms interval for admin display purposes
-    setInterval(function(){
-        if(checkAdmin() == true){
-            populateAdminList();
-        }
-    }, 10000);
 
 });
 
