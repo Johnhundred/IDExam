@@ -45,6 +45,26 @@
   }
 }
 
+.event-partners-wrap {
+
+  width: 100%;
+  margin-top: $gutter-v-double;
+
+  .event-partners {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+
+
+    img {
+      width: 20%;
+      height: 100%;
+
+    }
+  }
+}
+
+
 footer {
   height: 2px;
   width: 100vw;
