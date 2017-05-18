@@ -154,7 +154,7 @@ jQuery("document").ready(function() {
 
             $(".partner-logo img").attr("src", jPartner.img);
             $(".CEO p").text(jPartner.ceo);
-            $(".website p a").attr("href", jPartner.website);
+            $(".website p a").attr("href", jPartner.website).text(jPartner.website);
             $(".headquarters p").text(jPartner.headquarters);
         }
 
