@@ -24,13 +24,27 @@
 
 <body>
 
-<div class="page-wrapper">
+<nav class="navbar">
+    <h1><a href="index.html">TechX</a></h1>
+
+    <ul>
+        <li><a href="events.html">Events</a></li>
+        <li><a href="partners.html">Partners</a></li>
+        <li><a href="about.html">About</a></li>
+        <li><a href="contact.html">Contact</a></li>
+    </ul>
+</nav>
+
+<div class="title-container margin-center">
+    <h2>Admin</h2>
+</div>
+
+<div class="page-wrapper content-container">
     <div id="wdw-admin" class="">
-        <h1>Hello Admin</h1>
-        <div class="wdw-login">
-            <form id="lblAdminLogin">
-                <input id="lblAdminUsername" type="text" placeholder="Username...">
-                <input id="lblAdminPassword" type="password" placeholder="Password...">
+        <div class="wdw-login margin-center">
+            <form id="lblAdminLogin" class="round-corners">
+                <input id="lblAdminUsername" type="text" placeholder="Username">
+                <input id="lblAdminPassword" type="password" placeholder="Password">
                 <input id="btnAdminLogin" type="submit" value="LOGIN">
                 <span>Login status.</span>
             </form>
@@ -38,11 +52,11 @@
         </div>
 
         <div class="wdw-admin-picker">
-            <h3>Please pick what you would like to administrate:</h3>
+            <h3>Please pick what you would like to administrate</h3>
             <ul>
-                <li><a href="#" class="admin-event-list">Events</a></li>
-                <li><a href="#" class="admin-partner-list">Partners</a></li>
-                <li><a href="#" class="admin-admin-list">Admins</a></li>
+                <li class="round-corners"><a href="#" class="admin-event-list">Events</a></li>
+                <li class="round-corners"><a href="#" class="admin-partner-list">Partners</a></li>
+                <li class="round-corners"><a href="#" class="admin-admin-list">Admins</a></li>
             </ul>
         </div>
 
