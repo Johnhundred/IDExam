@@ -22,6 +22,8 @@ jQuery("document").ready(function() {
 
     handleAdminSetup();
 
+    var sFPartnerTemplate = '<div class="partner-card" data-partner-id="{{id}}"><img src="{{img}}"><h2>{{name}}</h2></div>';
+
 
 
     // EVENTS
@@ -102,9 +104,64 @@ jQuery("document").ready(function() {
         submitPartnerModal(this);
     });
 
+    $(document).on("click", ".partner-card", function(){
+        var sId = $(this).attr("data-partner-id");
+        fRedirectToPartner(sId);
+    });
+
 
 
     // FUNCTIONS - GENERAL
+
+    function fPopulatePartners(){
+        var sHtml = "";
+        getPartners();
+        var iCounter = jPartners.partners.length;
+        for(var i = 0; i < iCounter; i++){
+            sHtml += sFPartnerTemplate.replace("{{img}}", jPartners.partners[i].img);
+            sHtml = sHtml.replace("{{name}}", jPartners.partners[i].name);
+            sHtml = sHtml.replace("{{id}}", jPartners.partners[i].id);
+        }
+
+        $(".partner-container").empty().append(sHtml);
+    }
+
+    function fRedirectToPartner(sId){
+        localStorage.sPartner = sId;
+        setTimeout(function(){
+            window.location.href = "/partnerTemplate.html";
+        }, 100);
+    }
+
+    function fPopulateSpecificPartner(){
+        if(localStorage.getItem("sPartner") !== null){
+            getPartners();
+            var jPartner = {};
+
+            var iCounter = jPartners.partners.length;
+            for(var i = 0; i < iCounter; i++){
+                if(jPartners.partners[i].id == localStorage.sPartner){
+                    jPartner = jPartners.partners[i];
+                }
+            }
+
+            $(".partner-title h2").text(jPartner.name);
+
+            var sDesc = '<h3>Partner Description</h3>';
+            sDesc += "<pre>" + jPartner.description;
+            sDesc += "</pre>";
+            $(".partner-desc").empty().append(sDesc);
+
+            $(".partner-logo img").attr("src", jPartner.img);
+            $(".CEO p").text(jPartner.ceo);
+            $(".website p a").attr("href", jPartner.website).text(jPartner.website);
+            $(".headquarters p").text(jPartner.headquarters);
+        }
+
+    }
+
+    fPopulatePartners();
+    fPopulateSpecificPartner();
 
 
 
@@ -364,7 +421,8 @@ jQuery("document").ready(function() {
         jPartner.name = sName;
         setPartner(jPartner);
 
-        $(oElement).children().val("");
+        $(oElement).find('input[type="text"]').val("");
+        $(oElement).find('textarea').val("");
         populatePartnerList();
     }
 
