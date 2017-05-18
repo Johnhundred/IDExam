@@ -199,6 +199,36 @@ jQuery("document").ready(function() {
         if(localStorage.getItem("sFrontpage") !== null){
             sWord = localStorage.sFrontpage;
             localStorage.removeItem("sFrontpage");
+        } else {
+            sWord = $(".events-container .search-bar input").val();
+        }
+
+        getEvents();
+        var originalEvents = jQuery.extend(true, {}, jEvents);
+        var searchHits = [];
+        var iCounter2 = originalEvents.events.length;
+        for(var j = 0; j < iCounter2; j++){
+            if(originalEvents.events[j].title.toLowerCase().indexOf(sWord) != -1){
+                searchHits.push(originalEvents.events[j]);
+                originalEvents.events.splice(j, 1);
+                j--;
+                iCounter2--;
+            } else if(originalEvents.events[j].description.toLowerCase().indexOf(sWord) != -1){
+                searchHits.push(originalEvents.events[j]);
+                originalEvents.events.splice(j, 1);
+                j--;
+                iCounter2--;
+            } else if(originalEvents.events[j].organizer.toLowerCase().indexOf(sWord) != -1){
+                searchHits.push(originalEvents.events[j]);
+                originalEvents.events.splice(j, 1);
+                j--;
+                iCounter2--;
+            } else if(originalEvents.events[j].location.toLowerCase().indexOf(sWord) != -1){
+                searchHits.push(originalEvents.events[j]);
+                originalEvents.events.splice(j, 1);
+                j--;
+                iCounter2--;
+            }
         }
 
         var aCheckedInputs = $('.filter-list input:checked');
@@ -216,8 +246,11 @@ jQuery("document").ready(function() {
                 }
             }
         }
+
+        console.log(searchHits);
     }
 
+    runSearch();
     fPopulatePartners();
     fPopulateSpecificPartner();
     removePreloader();
@@ -529,7 +562,10 @@ jQuery("document").ready(function() {
             sHtml = sHtml.replace("{{date}}", jEvents.events[i].date);
             sHtml = sHtml.replace("{{price}}", jEvents.events[i].price);
             sHtml = sHtml.replace("{{location}}", jEvents.events[i].location);
-            var iPartners = jEvents.events[i].partners.partners.length;
+            var iPartners = 0;
+            if(!!jEvents.events[i].partners.partners.length){
+                iPartners = jEvents.events[i].partners.partners.length;
+            }
             sHtml = sHtml.replace("{{partners}}", "" + iPartners + " Partners");
             sHtml = sHtml.replace("{{partnersData}}", iPartners);
             sHtml = sHtml.replace("{{description}}", jEvents.events[i].description);
