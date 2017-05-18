@@ -2,6 +2,10 @@
 
 /* --------------- ADMIN --------------- */
 
+.active {
+  background-color: $secondaryColor !important;
+}
+
 #wdw-admin {
   .wdw-admin-picker {
     display: none;
@@ -93,38 +97,79 @@
       padding: $gutter-v;
       h3 {
         margin: 0;
+        color: $primaryColor;
       }
       i {
       }
     }
   }
   .wdw-admin-list {
+    text-align: center;
+
+    #lblAdminCreate {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 1%;
+      margin-top: 4vh;
+      background-color: #3498db;
+      width: 25%;
+
+      input {
+        margin: 2% 0;
+        width: 50%;
+        text-align: center;
+        font-size: 1.25em;
+      }
+
+      input[type=submit] {
+        width: 25%;
+        padding: 2%;
+        background-color: $tertiaryColor;
+        border: none;
+      }
+
+
+
+    }
+
 
   }
   .wdw-partner-list > div {
 
   }
   .wdw-partner-list, .wdw-event-list {
-    width: 75%;
+    //width: 75%;
     h4 {
       text-align: center;
     }
     .wdw-partner-create, .partner-item, .wdw-event-create, .event-item {
       background-color: $secondaryColor;
       color: $textColor;
-      padding: $gutter-v-double $gutter-h-double;
+      padding: $gutter-v-double $gutter-h;
       form {
         display: flex;
         flex-direction: row;
         justify-content: space-between;
         div:nth-child(2) {
-          width: 70%;
+          width: 80%; //it was 70 before
           div:nth-child(1){
             display: flex;
             flex-direction: row;
             align-items: flex-end;
+            background-color: $secondaryColor;
             input:first-child {
-              margin-right: auto;
+              //margin-right: auto;
+            }
+
+            input {
+              width: 60%;
+            }
+
+            input[type=submit] {
+              background-color: $tertiaryColor;
+              border: none;
+              width: 30%;
             }
           }
           div:nth-child(2){
@@ -142,8 +187,49 @@
         display: flex;
         align-items: center;
         justify-content: center;
+        background-color: $tertiaryColor;
+        border-radius: 10px;
+        margin-right: $gutter-v-double;
       }
     }
+
+    /*.wdw-event-create {
+      background-color: $secondaryColor;
+      color: $textColor;
+      padding: $gutter-v-double $gutter-h;
+
+      #lblEventCreate {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+
+        .image-wrap {
+          width: 15%;
+        }
+
+        .info-wrap {
+
+          width: 80%;
+
+          .input-wrapper {
+            display: flex;
+            flex-direction: row;
+            align-items: flex-end;
+            background-color: $secondaryColor;
+          }
+
+          .label-wraper {
+
+          }
+
+
+        }
+
+      }
+    }*/
+
+
+
     .partner-list, .event-list {
       .partner-item, .event-item {
         margin-bottom: $gutter-v-double;
@@ -151,6 +237,37 @@
     }
   }
 }
+
+
+
+
+/*
+
+I'm bored of this modal...i'll do it a bit later
+
+
+#wdw-admin-modal {
+  width: 100vw;
+  height: 100vh;
+  position: absolute;
+  top: 0;
+  z-index: 1;
+  background-color: rgba($black, 0.5);
+
+  #modal-content {
+    width: 60vh;
+    height: 60vh;
+    background-color: $secondaryColor;
+
+    #modal-top {
+      h2 {
+        color: white;
+      }
+    }
+  }
+
+
+}*/
 
 
 

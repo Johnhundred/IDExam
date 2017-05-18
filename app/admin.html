@@ -56,16 +56,15 @@
             <ul>
                 <li class="round-corners"><a href="#" class="admin-event-list">Events</a></li>
                 <li class="round-corners"><a href="#" class="admin-partner-list">Partners</a></li>
-                <li class="round-corners"><a href="#" class="admin-admin-list">Admins</a></li>
+                <li class="round-corners active"><a href="#" class="admin-admin-list">Admins</a></li>
             </ul>
         </div>
 
         <div class="wdw-admin-list pick-window">
-            <h4>Admins</h4>
-            <h5>Create New Admin</h5>
-            <form id="lblAdminCreate">
-                <input id="lblAdminNewUsername" type="text" placeholder="Username...">
-                <input id="lblAdminNewPassword" type="text" placeholder="Password...">
+            <h4>Create New Admin</h4>
+            <form id="lblAdminCreate" class="round-corners margin-center">
+                <input id="lblAdminNewUsername" type="text" placeholder="Username">
+                <input id="lblAdminNewPassword" type="text" placeholder="Password">
                 <input id="btnAdminCreate" type="submit" value="CREATE">
             </form>
             <div>
@@ -73,15 +72,15 @@
             </div>
         </div>
 
-        <div class="wdw-event-list pick-window margin-center">
+        <div class="wdw-event-list pick-window">
             <h4 class="margin-center">Add Event</h4>
             <div class="wdw-event-create round-corners">
                 <form id="lblEventCreate">
-                    <div>
+                    <div class="round-corners image-wrap">
                         <input id="lblEventImage" type="text" placeholder="Image URL">
                     </div>
-                    <div>
-                        <div>
+                    <div class="info-wrap">
+                        <div class="input-wrapper">
                             <input id="lblEventTitle" type="text" placeholder="Event Title">
                             <input id="lblEventOrganizer" type="text" placeholder="Organizer">
                             <input id="lblEventDate" type="date" placeholder="Date">
@@ -90,7 +89,7 @@
                             <a href="#" data-partners="0">Partners</a>
                             <input type="submit" id="btnEventCreate" value="CREATE">
                         </div>
-                        <div>
+                        <div class="label-wrapper">
                             <textarea id="lblEventDescription" placeholder="Write Event Description here..."></textarea>
                         </div>
                     </div>
@@ -132,7 +131,7 @@
 </div>
 
 <div id="wdw-admin-modal">
-    <div id="modal-content">
+    <div id="modal-content" class="round-corners">
         <div id="modal-top">
             <h2>Template</h2>
         </div>
@@ -142,7 +141,7 @@
             </div>
         </div>
         <div id="modal-bottom">
-            <i>Quit</i>
+            <i class="fa fa-times" aria-hidden="true"></i>
         </div>
     </div>
 </div>
