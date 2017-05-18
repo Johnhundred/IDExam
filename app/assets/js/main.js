@@ -12,10 +12,13 @@ jQuery("document").ready(function() {
     var sEditAdminTemplate = '<div class="modal-admin-edit-form-container"><form><input type="text" placeholder="Name..." value="{{name}}"><input type="text" placeholder="ID..." value="{{id}}"><input type="submit" value="SUBMIT"></form></div>';
 
     var jEvents = {"events":[]};
-    var sEventTemplate = '<div class="event-item round-corners"><form class="lblEventCreate"><div><input class="lblEventImage" type="text" value="{{img}}"></div><div><div><input class="lblEventTitle" type="text" value="{{title}}"><input class="lblEventOrganizer" type="text" value="{{organizer}}"><input class="lblEventDate" type="date" value="{{date}}"><input class="lblEventPrice" type="text" value="{{price}}"><input class="lblEventLocation" type="text" value="{{location}}"><a href="#">{{partners}}</a><input type="submit" class="btnEventCreate" value="CREATE"></div><div><textarea class="lblEventDescription">{{description}}</textarea></div></div><input class="lblEventId" type="hidden" value="{{id}}"></form><i class="fa fa-trash-o delete-item" aria-hidden="true"></i></div>';
+    var sEventTemplate = '<div class="event-item round-corners"><form class="lblEventCreate"><div><input class="lblEventImage" type="text" value="{{img}}"></div><div><div><input class="lblEventTitle" type="text" value="{{title}}"><input class="lblEventOrganizer" type="text" value="{{organizer}}"><input class="lblEventDate" type="date" value="{{date}}"><input class="lblEventPrice" type="text" value="{{price}}"><input class="lblEventLocation" type="text" value="{{location}}"><a href="#" data-partners="{{partnersData}}">{{partners}}</a><input type="submit" class="btnEventCreate" value="SUBMIT"></div><div><textarea class="lblEventDescription">{{description}}</textarea></div></div><input class="lblEventId" type="hidden" value="{{id}}"></form><i class="fa fa-trash-o delete-item" aria-hidden="true"></i></div>';
+    var jSelectedPartners = {"id": "", "partners": []};
 
     var jPartners = {"partners":[]};
     var sPartnerTemplate = '<div class="partner-item round-corners"><form class="lblPartnerCreate"><div><input class="lblPartnerImage" type="text" value="{{img}}"></div><div><div><input class="lblPartnerName" type="text" value="{{name}}"><input class="lblPartnerCEO" type="text" value="{{ceo}}"><input class="lblPartnerWebsite" type="text" value="{{website}}"><input class="lblPartnerHeadquarters" type="text" value="{{headquarters}}"><input class="btnPartnerCreate" type="submit" value="SUBMIT"></div><div><textarea class="lblPartnerDescription">{{description}}</textarea></div></div><input class="lblPartnerId" type="hidden" value="{{id}}"></form><i class="fa fa-trash-o delete-item" aria-hidden="true"></i></div>';
+
+    var sPartnerModalTemplate = '<div class="partner-modal-item"><div><input type="checkbox" data-partner-id="{{partnerId}}" {{checked}}></div><h5>{{partner}}</h5></div>';
 
     handleAdminSetup();
 
@@ -68,6 +71,19 @@ jQuery("document").ready(function() {
         editItem(this);
     });
 
+    $(document).on("submit", ".lblEventCreate", function(){
+        editItem(this);
+    });
+
+    $(document).on("click", ".wdw-event-list a", function(){
+        var sId = $(this).parent().parent().parent().find(".lblEventId").val();
+        if(!!sId){
+            populatePartnerModal(sId);
+        } else {
+            populatePartnerModal();
+        }
+    });
+
     $(document).on("click", ".delete-item", function(){
         deleteItem($(this).parent());
     });
@@ -80,6 +96,13 @@ jQuery("document").ready(function() {
     $(".admin-logout").click(function(){
         localStorage.bAdmin = false;
     });
+
+    $(".partner-modal-form").submit(function(e){
+        e.preventDefault();
+        submitPartnerModal(this);
+    });
+
+
 
     // FUNCTIONS - GENERAL
 
@@ -182,7 +205,7 @@ jQuery("document").ready(function() {
             }
         }
         localStorage.sEvents = JSON.stringify(jEvents);
-        populateEventList()
+        populateEventList();
         return true;
     }
 
@@ -299,7 +322,6 @@ jQuery("document").ready(function() {
         var sDate = $(oElement).find("#lblEventDate").val();
         var sPrice = $(oElement).find("#lblEventPrice").val();
         var sLocation = $(oElement).find("#lblEventLocation").val();
-        var sPartner = "wat";
         var sDescription = $(oElement).find("#lblEventDescription").val();
 
         getEvents();
@@ -311,7 +333,11 @@ jQuery("document").ready(function() {
         jEvent.date = sDate;
         jEvent.price = sPrice;
         jEvent.location = sLocation;
-        jEvent.partners = sPartner;
+        if(jSelectedPartners.id == "1"){
+            jEvent.partners = jSelectedPartners;
+        } else {
+            jEvent.partners = {"id": "1", "partners": []};
+        }
         jEvent.description = sDescription;
         setEvent(jEvent);
 
@@ -386,7 +412,9 @@ jQuery("document").ready(function() {
             sHtml = sHtml.replace("{{date}}", jEvents.events[i].date);
             sHtml = sHtml.replace("{{price}}", jEvents.events[i].price);
             sHtml = sHtml.replace("{{location}}", jEvents.events[i].location);
-            sHtml = sHtml.replace("{{partners}}", jEvents.events[i].partners);
+            var iPartners = jEvents.events[i].partners.partners.length;
+            sHtml = sHtml.replace("{{partners}}", "" + iPartners + " Partners");
+            sHtml = sHtml.replace("{{partnersData}}", iPartners);
             sHtml = sHtml.replace("{{description}}", jEvents.events[i].description);
         }
 
@@ -409,6 +437,73 @@ jQuery("document").ready(function() {
         }
 
         $(".wdw-partner-list div.partner-list").empty().append(sHtml);
+    }
+
+    function populatePartnerModal(sId){
+        sId = sId || "1";
+        var aCurrentPartners = [];
+
+        // Check the received ID against the IDs of all events.
+        // If a match is found, we know we are looking at that event's partners.
+        getEvents();
+        var iCounter = jEvents.events.length;
+        for(var i = 0; i < iCounter; i++){
+            if(jEvents.events[i].id == sId){
+                aCurrentPartners = jEvents.events[i].partners.partners;
+                console.log(aCurrentPartners);
+            }
+        }
+
+        //Populate the modal with a form containing all partners: Checkbox - Name
+        var sHtml = "";
+        getPartners();
+        var iCounter2 = jPartners.partners.length;
+        var iCounter3 = aCurrentPartners.length;
+        for(var j = 0; j < iCounter2; j++){
+            sHtml += sPartnerModalTemplate.replace("{{partnerId}}", jPartners.partners[j].id);
+            sHtml = sHtml.replace("{{partner}}", jPartners.partners[j].name);
+
+            // If aCurrentPartners list has any IDs, match those IDs to partners in the generated HTML,
+            // and check their checkboxes
+            if(iCounter3 > 0){
+                for(var n = 0; n < iCounter3; n++){
+                    if(aCurrentPartners[n] == jPartners.partners[j].id){
+                        sHtml = sHtml.replace("{{checked}}", "checked");
+                    }
+                }
+            }
+            // Remove templating string from element if match wasn't found
+            sHtml = sHtml.replace("{{checked}}", "");
+        }
+        sHtml += '<input type="submit" value="SUBMIT">';
+        $(".partner-modal-form").attr("data-event-id", sId).empty().append(sHtml);
+    }
+
+    function submitPartnerModal(oElement){
+        // Once submit is clicked, set jSelectedPartners to the id submitted with a list of checked partners
+
+        // Get id of event from form attr
+        jSelectedPartners.id = $(oElement).attr("data-event-id");
+
+        // Create array of checked checkboxes from the modal form
+        var aChecked = $(oElement).find("input:checked");
+        var aPartners = [];
+        for(var i = 0; i < aChecked.length; i++){
+            aPartners.push($(aChecked[i]).attr("data-partner-id"));
+        }
+
+        jSelectedPartners.partners = aPartners;
+
+        getEvents();
+        var iCounter = jEvents.events.length;
+        for(var i = 0; i < iCounter; i++){
+            if(jEvents.events[i].id == jSelectedPartners.id){
+                jEvents.events[i].partners = jSelectedPartners;
+                editEvent(jEvents.events[i]);
+                populateEventList();
+                break;
+            }
+        }
     }
 
     function editItem(oElement){
@@ -446,8 +541,34 @@ jQuery("document").ready(function() {
             jPartner.name = sName;
 
             editPartner(jPartner);
-            $(oElement).
             populatePartnerList();
+        }
+        if($(oElement).hasClass("lblEventCreate")){
+            var sId = $(oElement).find(".lblEventId").val();
+            var sImage = $(oElement).find(".lblEventImage").val();
+            var sTitle = $(oElement).find(".lblEventTitle").val();
+            var sOrganizer = $(oElement).find(".lblEventOrganizer").val();
+            var sDate = $(oElement).find(".lblEventDate").val();
+            var sPrice = $(oElement).find(".lblEventPrice").val();
+            var sLocation = $(oElement).find(".lblEventLocation").val();
+            var sDescription = $(oElement).find(".lblEventDescription").val();
+
+            getEvents();
+            var jEvent = {};
+            jEvent.id = sId;
+            jEvent.img = sImage;
+            jEvent.title = sTitle;
+            jEvent.organizer = sOrganizer;
+            jEvent.date = sDate;
+            jEvent.price = sPrice;
+            jEvent.location = sLocation;
+            if(jSelectedPartners.id == sId){
+                jEvent.partners = jSelectedPartners;
+            }
+            jEvent.description = sDescription;
+
+            editEvent(jEvent);
+            populateEventList();
         }
     }
 
@@ -477,18 +598,36 @@ jQuery("document").ready(function() {
             console.log(sId);
 
             swal({
-                    title: "Are you sure?",
-                    text: "You will not be able to recover this admin user!",
-                    type: "warning",
-                    showCancelButton: true,
-                    confirmButtonColor: "#DD6B55",
-                    confirmButtonText: "Yes, delete it!",
-                    closeOnConfirm: false
-                },
-                function(){
-                    swal("Deleted!", "The admin user has been deleted.", "success");
-                    deletePartner(sId);
-                });
+                title: "Are you sure?",
+                text: "You will not be able to recover this partner!",
+                type: "warning",
+                showCancelButton: true,
+                confirmButtonColor: "#DD6B55",
+                confirmButtonText: "Yes, delete it!",
+                closeOnConfirm: false
+            },
+            function(){
+                swal("Deleted!", "The partner has been deleted.", "success");
+                deletePartner(sId);
+            });
+        }
+        if($(oElement).hasClass("event-item")){
+            var sId = $(oElement).find('input[type="hidden"]').val();
+            console.log(sId);
+
+            swal({
+                title: "Are you sure?",
+                text: "You will not be able to recover this event!",
+                type: "warning",
+                showCancelButton: true,
+                confirmButtonColor: "#DD6B55",
+                confirmButtonText: "Yes, delete it!",
+                closeOnConfirm: false
+            },
+            function(){
+                swal("Deleted!", "The event has been deleted.", "success");
+                deleteEvent(sId);
+            });
         }
     }
 

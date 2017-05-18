@@ -73,7 +73,7 @@
                             <input id="lblEventDate" type="date" placeholder="Date">
                             <input id="lblEventPrice" type="text" placeholder="Price">
                             <input id="lblEventLocation" type="text" placeholder="Location">
-                            <a href="#">Partners</a>
+                            <a href="#" data-partners="0">Partners</a>
                             <input type="submit" id="btnEventCreate" value="CREATE">
                         </div>
                         <div>
@@ -117,8 +117,8 @@
     </div>
 </div>
 
-<div id="wdw-admin-modal" class="container-fluid">
-    <div id="modal-content" class="container">
+<div id="wdw-admin-modal">
+    <div id="modal-content">
         <div id="modal-top">
             <h2>Template</h2>
         </div>
@@ -128,6 +128,24 @@
             </div>
         </div>
         <div id="modal-bottom">
+            <i>Quit</i>
+        </div>
+    </div>
+</div>
+
+<div id="wdw-partner-modal">
+    <div id="partner-modal-content">
+        <div id="partner-modal-top">
+            <h2>Select Partners</h2>
+        </div>
+        <div id="partner-modal-middle">
+            <div>
+                <form class="partner-modal-form">
+
+                </form>
+            </div>
+        </div>
+        <div id="partner-modal-bottom">
             <i>Quit</i>
         </div>
     </div>
