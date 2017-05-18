@@ -7,10 +7,31 @@
     display: none;
   }
   .wdw-login{
+
+    text-align: center;
     #lblAdminLogin {
 
       display: flex;
-      flex-direction: row;
+      flex-direction: column;
+      align-items: center;
+      padding: 10%;
+      margin-top: $gutter-v-double;
+      background-color: $secondaryColor;
+
+      input {
+        margin: 2% 0;
+        width: 50%;
+        text-align: center;
+
+        font-size: 1.25em;
+      }
+
+      input[type=submit] {
+        width: 25%;
+        padding: 2%;
+        background-color: $tertiaryColor;
+        border: none;
+      }
 
       span {
         display: none;
@@ -18,11 +39,49 @@
     }
     .admin-logout {
       display: none;
+      font-family: $bodyFont;
+      color: $black;
+      text-decoration: none;
     }
   }
+
+  .wdw-admin-picker {
+    text-align: center;
+
+    h3 {
+      margin-top: $gutter-v-double;
+    }
+
+    ul {
+
+      display: flex;
+      flex-direction: row;
+      justify-content: space-around;
+      margin-top: $gutter-v-double;
+
+      li {
+        list-style: none;
+        padding: 3% 6%;
+        background-color: $tertiaryColor;
+
+        a {
+
+          font-family: $bodyFont;
+          color: $black;
+          text-decoration: none;
+          font-size: 1.5em;
+        }
+
+      }
+    }
+  }
+
+
   .pick-window {
     display: none;
   }
+
+
   .wdw-admin-list > div {
     padding-top: $gutter-v-double;
     .admin-list-item {
