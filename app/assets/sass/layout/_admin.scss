@@ -8,6 +8,10 @@
   }
   .wdw-login{
     #lblAdminLogin {
+
+      display: flex;
+      flex-direction: row;
+
       span {
         display: none;
       }
@@ -88,4 +92,6 @@
     }
   }
 }
+
+
 
