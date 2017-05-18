@@ -563,7 +563,7 @@ jQuery("document").ready(function() {
             sHtml = sHtml.replace("{{price}}", jEvents.events[i].price);
             sHtml = sHtml.replace("{{location}}", jEvents.events[i].location);
             var iPartners = 0;
-            if(!!jEvents.events[i].partners.partners.length){
+            if(!!jEvents.events[i].partners.partners){
                 iPartners = jEvents.events[i].partners.partners.length;
             }
             sHtml = sHtml.replace("{{partners}}", "" + iPartners + " Partners");
