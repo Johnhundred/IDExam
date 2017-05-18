@@ -1,0 +1,21 @@
+/* --------------- PARTNERS --------------- */
+
+
+.partner-container {
+  display: flex;
+  flex-flow: row wrap;
+  align-content: space-between;
+  justify-content: space-between;
+}
+
+.partner-card {
+  width: 18%;
+
+  img {
+    width: 100%;
+  }
+
+  h2 {
+    text-align: center;
+  }
+}
