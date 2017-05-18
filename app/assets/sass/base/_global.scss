@@ -10,9 +10,14 @@ h1,h2,h3,h4,h5,h6 {
   color: $textColor;
 }
 
-p,input,footer,button,label,ul,li {
+p,input,footer,button,label,ul,li,pre {
   font-family: $bodyFont;
   color: $textColor;
+}
+
+pre {
+  white-space: pre-wrap;
+  word-wrap: break-word;
 }
 
 .margin-center {
