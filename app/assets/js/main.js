@@ -23,6 +23,13 @@ jQuery("document").ready(function() {
     handleAdminSetup();
 
     var sFPartnerTemplate = '<div class="partner-card" data-partner-id="{{id}}"><img src="{{img}}"><h2>{{name}}</h2></div>';
+    var sFEventTemplate = '<div class="event-result" data-event-id="{{id}}">' +
+        '<h2>{{title}}</h2>' +
+        '<h3>{{partners}}</h3>' +
+        '<pre>{{description}}</pre>' +
+        '<p class="event-info">{{date}} | {{price}} | {{location}}</p>' +
+        '<button>MORE INFORMATION</button>' +
+        '</div>';
 
 
 
@@ -129,6 +136,10 @@ jQuery("document").ready(function() {
         runSearch();
     });
 
+    $(document).on("click", ".event-result button", function(){
+        fRedirectToEvent($(this).parent().attr("data-event-id"));
+    });
+
 
 
     // FUNCTIONS - GENERAL
@@ -150,6 +161,13 @@ jQuery("document").ready(function() {
         localStorage.sPartner = sId;
         setTimeout(function(){
             window.location.href = "/partnerTemplate.html";
+        }, 100);
+    }
+
+    function fRedirectToEvent(sId){
+        localStorage.sEvent = sId;
+        setTimeout(function(){
+            window.location.href = "/eventTemplate.html";
         }, 100);
     }
 
@@ -177,7 +195,55 @@ jQuery("document").ready(function() {
             $(".website p a").attr("href", jPartner.website).text(jPartner.website);
             $(".headquarters p").text(jPartner.headquarters);
         }
+    }
 
+    function fPopulateSpecificEvent(){
+        if(localStorage.getItem("sEvent") !== null){
+            getEvents();
+            var jEvent = {};
+
+            var iCounter = jEvents.events.length;
+            for(var i = 0; i < iCounter; i++){
+                if(jEvents.events[i].id == localStorage.sEvent){
+                    jEvent = jEvents.events[i];
+                }
+            }
+
+            $(".partner-title h2").text(jEvent.title);
+
+            var sDesc = '<h3>Event Description</h3>';
+            sDesc += "<pre>" + jEvent.description;
+            sDesc += "</pre>";
+            $(".event-content").empty().append(sDesc);
+
+            var aPartners = [];
+            var iPartners = jEvent.partners.partners.length;
+            if(iPartners > 0){
+                // for each id, loop through partners and get name
+                for(var w = 0; w < iPartners; w++){
+                    getPartners();
+                    for(var q = 0; q < jPartners.partners.length; q++){
+                        //on id match with partner id, store name in array
+                        if(jEvent.partners.partners[w] == jPartners.partners[q].id){
+                            aPartners.push(jPartners.partners[q].img);
+                        }
+                    }
+                }
+            }
+
+            var sHtml = "";
+            var iCo = aPartners.length;
+            for(var u = 0; u < iCo; u++){
+                sHtml += '<img src="' + aPartners[u] + '" alt="partner-logo">';
+            }
+            $(".event-partners").empty().append(sHtml);
+
+            $(".partner-logo img").attr("src", jEvent.img);
+            $(".organizer p").text(jEvent.organizer);
+            $(".date p").text(jEvent.date);
+            $(".price p").text(jEvent.price);
+            $(".location p").text(jEvent.location);
+        }
     }
 
     function removePreloader() {
@@ -198,9 +264,10 @@ jQuery("document").ready(function() {
 
         if(localStorage.getItem("sFrontpage") !== null){
             sWord = localStorage.sFrontpage;
+            sWord = sWord.toLowerCase();
             localStorage.removeItem("sFrontpage");
         } else {
-            sWord = $(".events-container .search-bar input").val();
+            sWord = $(".events-container .search-bar input").val().toLowerCase();
         }
 
         getEvents();
@@ -236,23 +303,113 @@ jQuery("document").ready(function() {
         if(!!iCounter && iCounter > 0){
             for(var i = 0; i < iCounter; i++){
                 if($(aCheckedInputs[i]).parent().parent().hasClass("event-location")){
-
+                    var sLocation = $(aCheckedInputs[i]).val().toLowerCase();
+                    var iCounter3 = searchHits.length;
+                    for(var t = 0; t < iCounter3; t++){
+                        if(searchHits[t].location.toLowerCase().indexOf(sLocation) == -1){
+                            searchHits.splice(t, 1);
+                            t--;
+                            iCounter3--;
+                        }
+                    }
                 } else if($(aCheckedInputs[i]).parent().parent().hasClass("event-price")){
-
+                    if($(aCheckedInputs[i]).attr("data-price-id") == 1){
+                        console.log("Free");
+                        var iCounter5 = searchHits.length;
+                        for(var c = 0; c < iCounter5; c++){
+                            if(Number(searchHits[c].price) && Number(searchHits[c].price) > 0){
+                                searchHits.splice(c, 1);
+                                c--;
+                                iCounter5--;
+                            }
+                        }
+                    } else if($(aCheckedInputs[i]).attr("data-price-id") == 2){
+                        console.log("Paid");
+                        var iCounter6 = searchHits.length;
+                        for(var b = 0; b < iCounter5; b++){
+                            if(Number(searchHits[b].price) && Number(searchHits[b].price) < 1){
+                                searchHits.splice(b, 1);
+                                b--;
+                                iCounter6--;
+                            }
+                        }
+                    }
                 } else if($(aCheckedInputs[i]).parent().parent().hasClass("event-date")){
 
                 } else if($(aCheckedInputs[i]).parent().parent().hasClass("event-sponsor")){
-
+                    var iCounter4 = searchHits.length;
+                    for(var g = 0; g < iCounter4; g++){
+                        if(typeof searchHits[g].partners.partners !== 'undefined' && searchHits[g].partners.partners.length == 0){
+                            searchHits.splice(g, 1);
+                            g--;
+                            iCounter4--;
+                        }
+                    }
                 }
             }
         }
 
-        console.log(searchHits);
+        var aPartners = [];
+        var sHtml = "";
+        var iDisplayCounter = searchHits.length;
+        for(var a = 0; a < iDisplayCounter; a++){
+            sHtml = sFEventTemplate.replace("{{id}}", searchHits[a].id);
+            sHtml = sHtml.replace("{{title}}", searchHits[a].title);
+            var iPartners = searchHits[a].partners.partners.length;
+            if(iPartners > 0){
+                // for each id, loop through partners and get name
+                for(var w = 0; w < iPartners; w++){
+                    getPartners();
+                    for(var q = 0; q < jPartners.partners.length; q++){
+                        //on id match with partner id, store name in array
+                        if(searchHits[a].partners.partners[w] == jPartners.partners[q].id){
+                            aPartners.push(jPartners.partners[q].name);
+                        }
+                    }
+                }
+            }
+
+            var sPartnersOutput = "";
+            for(var z = 0; z < aPartners.length; z++){
+                var iC = aPartners.length;
+                if(z < (iC - 1)){
+                    //not last
+                    sPartnersOutput += aPartners[z] + " | ";
+                } else {
+                    //last
+                    sPartnersOutput += aPartners[z];
+                }
+            }
+            sHtml = sHtml.replace("{{partners}}", sPartnersOutput);
+
+            var sDesc = "";
+            if(searchHits[a].description.length > 255){
+                sDesc = $.trim(searchHits[a].description).substring(0, 255);
+            } else {
+                sDesc = $.trim(searchHits[a].description);
+            }
+            sHtml = sHtml.replace("{{description}}", sDesc);
+            sHtml = sHtml.replace("{{date}}", searchHits[a].date);
+            sHtml = sHtml.replace("{{price}}", searchHits[a].price);
+            sHtml = sHtml.replace("{{location}}", searchHits[a].location);
+        }
+
+        $(".results-container").empty().append(sHtml);
     }
 
-    runSearch();
+    if($("body>div").hasClass("events-container")){
+        runSearch();
+    }
+
+    if($("body>div").hasClass("pt")){
+        fPopulateSpecificPartner();
+    }
+
+    if($("body>div").hasClass("et")){
+        fPopulateSpecificEvent();
+    }
+
     fPopulatePartners();
-    fPopulateSpecificPartner();
     removePreloader();
 
 
