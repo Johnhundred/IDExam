@@ -109,6 +109,26 @@ jQuery("document").ready(function() {
         fRedirectToPartner(sId);
     });
 
+    $(".front-page .search-bar input").keypress(function(e){
+        if(e.which == 13) {
+            fFrontpageSubmit();
+        }
+    });
+
+    $(".front-page .search-bar button").click(function(){
+        fFrontpageSubmit();
+    });
+
+    $(".events-container .search-bar input").keypress(function(e){
+        if(e.which == 13) {
+            runSearch();
+        }
+    });
+
+    $(".events-container .search-bar button").click(function(){
+        runSearch();
+    });
+
 
 
     // FUNCTIONS - GENERAL
@@ -160,8 +180,47 @@ jQuery("document").ready(function() {
 
     }
 
+    function removePreloader() {
+        setTimeout(function(){
+            $('body').addClass('loaded');
+        }, 1000);
+    }
+
+    function fFrontpageSubmit() {
+        localStorage.sFrontpage = $(".search-bar input").val();
+        setTimeout(function(){
+            window.location.href = "/events.html";
+        }, 100);
+    }
+
+    function runSearch(){
+        var sWord = "";
+
+        if(localStorage.getItem("sFrontpage") !== null){
+            sWord = localStorage.sFrontpage;
+            localStorage.removeItem("sFrontpage");
+        }
+
+        var aCheckedInputs = $('.filter-list input:checked');
+        var iCounter = aCheckedInputs.length;
+        if(!!iCounter && iCounter > 0){
+            for(var i = 0; i < iCounter; i++){
+                if($(aCheckedInputs[i]).parent().parent().hasClass("event-location")){
+
+                } else if($(aCheckedInputs[i]).parent().parent().hasClass("event-price")){
+
+                } else if($(aCheckedInputs[i]).parent().parent().hasClass("event-date")){
+
+                } else if($(aCheckedInputs[i]).parent().parent().hasClass("event-sponsor")){
+
+                }
+            }
+        }
+    }
+
     fPopulatePartners();
     fPopulateSpecificPartner();
+    removePreloader();
 
 
 
@@ -318,7 +377,7 @@ jQuery("document").ready(function() {
                 localStorage.bAdmin = true;
                 populateAdminList();
                 //placeholder, use animation instead?
-                $(".wdw-admin-picker").fadeIn();
+                $(".wdw-admin-picker").css("display", "flex").hide().fadeIn();
                 if(!bAdminMessageAnimationRunning){
                     adminLoginMessage(true);
                 }
