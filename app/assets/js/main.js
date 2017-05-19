@@ -264,6 +264,7 @@ jQuery("document").ready(function() {
 
         if(localStorage.getItem("sFrontpage") !== null){
             sWord = localStorage.sFrontpage;
+            $(".events-container .search-bar input").val(sWord);
             sWord = sWord.toLowerCase();
             localStorage.removeItem("sFrontpage");
         } else {
@@ -353,7 +354,7 @@ jQuery("document").ready(function() {
         var sHtml = "";
         var iDisplayCounter = searchHits.length;
         for(var a = 0; a < iDisplayCounter; a++){
-            sHtml = sFEventTemplate.replace("{{id}}", searchHits[a].id);
+            sHtml += sFEventTemplate.replace("{{id}}", searchHits[a].id);
             sHtml = sHtml.replace("{{title}}", searchHits[a].title);
             var iPartners = searchHits[a].partners.partners.length;
             if(iPartners > 0){
