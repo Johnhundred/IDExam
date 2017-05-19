@@ -68,7 +68,7 @@ jQuery("document").ready(function() {
     });
 
     //when an admin pick link is clicked, fade picker windows
-    $(".wdw-admin-picker ul li a").click(function(){
+    $(".wdw-admin-picker ul li").click(function(){
         adminPicker(this);
     });
 
@@ -138,6 +138,10 @@ jQuery("document").ready(function() {
 
     $(document).on("click", ".event-result button", function(){
         fRedirectToEvent($(this).parent().attr("data-event-id"));
+    });
+
+    $("#partner-modal-content>i").click(function(){
+        $("#wdw-partner-modal").fadeOut();
     });
 
 
@@ -585,7 +589,7 @@ jQuery("document").ready(function() {
             if(jAdmins.admins[i].username == sUsername && jAdmins.admins[i].password == sPassword){
                 localStorage.bAdmin = true;
                 populateAdminList();
-                $(".wdw-admin-picker").css("display", "flex").hide().fadeIn();
+                $(".wdw-admin-picker").fadeIn();
                 if(!bAdminMessageAnimationRunning){
                     adminLoginMessage(true);
                 }
@@ -696,14 +700,16 @@ jQuery("document").ready(function() {
     function adminPicker(oElement){
         if(checkAdmin() == true){
             $(".pick-window").css("display", "none");
+            $(".wdw-admin-picker ul li").removeClass("active");
+            $(oElement).addClass("active");
 
-            if($(oElement).hasClass("admin-event-list")){
+            if($(oElement).children("a").hasClass("admin-event-list")){
                 populateEventList();
                 $(".wdw-event-list").fadeIn();
-            } else if($(oElement).hasClass("admin-partner-list")){
+            } else if($(oElement).children("a").hasClass("admin-partner-list")){
                 populatePartnerList();
                 $(".wdw-partner-list").fadeIn();
-            } else if($(oElement).hasClass("admin-admin-list")){
+            } else if($(oElement).children("a").hasClass("admin-admin-list")){
                 populateAdminList();
                 $(".wdw-admin-list").fadeIn();
             }
@@ -782,7 +788,7 @@ jQuery("document").ready(function() {
         }
 
         //Populate the modal with a form containing all partners: Checkbox - Name
-        var sHtml = "";
+        var sHtml = '<div class="partner-wrap">';
         getPartners();
         var iCounter2 = jPartners.partners.length;
         var iCounter3 = aCurrentPartners.length;
@@ -802,8 +808,9 @@ jQuery("document").ready(function() {
             // Remove templating string from element if match wasn't found
             sHtml = sHtml.replace("{{checked}}", "");
         }
-        sHtml += '<input type="submit" value="SUBMIT">';
+        sHtml += '</div><input type="submit" value="SUBMIT">';
         $(".partner-modal-form").attr("data-event-id", sId).empty().append(sHtml);
+        $("#wdw-partner-modal").fadeIn();
     }
 
     function submitPartnerModal(oElement){
@@ -831,6 +838,8 @@ jQuery("document").ready(function() {
                 break;
             }
         }
+
+        $("#wdw-partner-modal").fadeOutgit();
     }
 
     function editItem(oElement){
@@ -1000,7 +1009,9 @@ jQuery("document").ready(function() {
             $(".wdw-admin-picker").fadeOut();
             $(".pick-window").fadeOut();
             $(".admin-logout").fadeOut();
-            $("#lblAdminLogin").fadeIn();
+            if($("#lblAdminLogin").css("display") == "none"){
+                $("#lblAdminLogin").css("display", "flex").hide().fadeIn();
+            }
         }
     }, 500);
 
