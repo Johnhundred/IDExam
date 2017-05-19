@@ -415,7 +415,11 @@ jQuery("document").ready(function() {
             }
             sHtml = sHtml.replace("{{description}}", sDesc);
             sHtml = sHtml.replace("{{date}}", searchHits[a].date);
-            sHtml = sHtml.replace("{{price}}", searchHits[a].price);
+            var sPrice = "" + searchHits[a].price;
+            if(sPrice.toLowerCase() != "free"){
+                sPrice += " DKK";
+            }
+            sHtml = sHtml.replace("{{price}}", sPrice);
             sHtml = sHtml.replace("{{location}}", searchHits[a].location);
         }
 
