@@ -1,4 +1,4 @@
-// ctrl-f "placeholder" without the quotes to find things we need to fix before we're done
+
 
 jQuery("document").ready(function() {
     var $ = jQuery.noConflict();
@@ -8,7 +8,7 @@ jQuery("document").ready(function() {
     var jAdmins = {"admins":[]};
     var bAdmin;
     var bAdminMessageAnimationRunning = false;
-    var sAdminTemplate = '<div class="admin-list-item"><h3>Name: {{name}}</h3><h3>ID: {{id}}</h3><i class="fa fa-pencil edit-item" aria-hidden="true"></i><i class="fa fa-trash-o delete-item" aria-hidden="true"></i></div>';
+    var sAdminTemplate = '<div class="admin-list-item" data-admin-id="{{id}}"><h3>Name: {{name}}</h3><i class="fa fa-trash-o delete-item" aria-hidden="true"></i></div>';
     var sEditAdminTemplate = '<div class="modal-admin-edit-form-container"><form><input type="text" placeholder="Name..." value="{{name}}"><input type="text" placeholder="ID..." value="{{id}}"><input type="submit" value="SUBMIT"></form></div>';
 
     var jEvents = {"events":[]};
@@ -336,6 +336,23 @@ jQuery("document").ready(function() {
                         }
                     }
                 } else if($(aCheckedInputs[i]).parent().parent().hasClass("event-date")){
+                    var sDateId = $(aCheckedInputs[i]).attr("data-date-id");
+                    var iCurrentMonth = new Date().getMonth();
+                    var iNextMonth = new Date().getMonth() + 1;
+                    var iCounter7 = searchHits.length;
+                    for(var m = 0; m < iCounter7; m++){
+                        var iEventMonth = new Date(searchHits[m].date).getMonth();
+                        if(sDateId == 1 && iCurrentMonth != iEventMonth){
+                            searchHits.splice(m, 1);
+                            m--;
+                            iCounter7--;
+                        }
+                        if(sDateId == 2 && iNextMonth != iEventMonth){
+                            searchHits.splice(m, 1);
+                            m--;
+                            iCounter7--;
+                        }
+                    }
 
                 } else if($(aCheckedInputs[i]).parent().parent().hasClass("event-sponsor")){
                     var iCounter4 = searchHits.length;
@@ -386,6 +403,7 @@ jQuery("document").ready(function() {
             var sDesc = "";
             if(searchHits[a].description.length > 255){
                 sDesc = $.trim(searchHits[a].description).substring(0, 255);
+                sDesc += "...";
             } else {
                 sDesc = $.trim(searchHits[a].description);
             }
@@ -567,7 +585,6 @@ jQuery("document").ready(function() {
             if(jAdmins.admins[i].username == sUsername && jAdmins.admins[i].password == sPassword){
                 localStorage.bAdmin = true;
                 populateAdminList();
-                //placeholder, use animation instead?
                 $(".wdw-admin-picker").css("display", "flex").hide().fadeIn();
                 if(!bAdminMessageAnimationRunning){
                     adminLoginMessage(true);
@@ -680,7 +697,6 @@ jQuery("document").ready(function() {
         if(checkAdmin() == true){
             $(".pick-window").css("display", "none");
 
-            //placeholder - implement css animation loader figure before showing each list
             if($(oElement).hasClass("admin-event-list")){
                 populateEventList();
                 $(".wdw-event-list").fadeIn();
@@ -721,7 +737,7 @@ jQuery("document").ready(function() {
             sHtml = sHtml.replace("{{price}}", jEvents.events[i].price);
             sHtml = sHtml.replace("{{location}}", jEvents.events[i].location);
             var iPartners = 0;
-            if(!!jEvents.events[i].partners.partners){
+            if(typeof jEvents.events[i].partners.partners !== "undefined"){
                 iPartners = jEvents.events[i].partners.partners.length;
             }
             sHtml = sHtml.replace("{{partners}}", "" + iPartners + " Partners");
@@ -875,6 +891,12 @@ jQuery("document").ready(function() {
             jEvent.location = sLocation;
             if(jSelectedPartners.id == sId){
                 jEvent.partners = jSelectedPartners;
+            } else {
+                for(var i = 0; i < jEvents.events.length; i++){
+                    if(jEvents.events[i].id == sId){
+                        jEvent.partners = jEvents.events[i].partners;
+                    }
+                }
             }
             jEvent.description = sDescription;
 
@@ -885,9 +907,7 @@ jQuery("document").ready(function() {
 
     function deleteItem(oElement){
         if($(oElement).hasClass("admin-list-item")){
-            var sId = $(oElement).children("h3:nth-child(2)").text();
-            sId = sId.split(": ");
-            sId = sId[1];
+            var sId = $(oElement).attr("data-admin-id");
             console.log(sId);
 
             swal({
