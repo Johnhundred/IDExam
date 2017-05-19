@@ -113,7 +113,7 @@
       padding: 1%;
       margin-top: 4vh;
       background-color: #3498db;
-      width: 25%;
+      width: 60%;
 
       input {
         margin: 2% 0;
@@ -147,6 +147,19 @@
     h4 {
       text-align: center;
     }
+
+    .partner-item {
+
+      position: absolute;
+
+
+
+    }
+
+
+
+
+
     .wdw-partner-create, .partner-item, .wdw-event-create, .event-item {
       background-color: $secondaryColor;
       color: $textColor;
@@ -185,12 +198,11 @@
               background-color: $tertiaryColor;
               border: none;
               width: 15%;
-              border-radius: 10px;
               padding: 3px 6px;
             }
 
             .btn-partners {
-              width: 20%;
+              width: 25%;
               background-color: white;
               font-family: $bodyFont;
               color: black;
@@ -235,6 +247,17 @@
     .partner-list, .event-list {
       .partner-item, .event-item {
         margin-bottom: $gutter-v-double;
+        position: relative;
+
+        .delete-item {
+          position: absolute;
+          top: 5%;
+          right: 2%;
+          color: white;
+
+
+        }
+
       }
     }
   }

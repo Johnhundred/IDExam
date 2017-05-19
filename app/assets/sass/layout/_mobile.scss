@@ -133,6 +133,11 @@
 
   /* --- ADMIN --- */
 
+
+  .wdw-login {
+    width: 100%;
+  }
+
   .wdw-admin-picker > ul {
     padding: 0;
 
@@ -165,6 +170,12 @@
   .wdw-event-create, .event-item {
 
     color: green;
+    padding: 9vh 6vw !important;
+
+    .delete-item {
+      top: 2% !important;
+    }
+
      form {
        flex-direction: column !important;
 
@@ -181,21 +192,23 @@
            flex-direction: column !important;
 
            input {
-             width: 100% !important;
-             margin: 0.5% 0 !important;
+             width: 75% !important;
+             margin: $gutter-h 50% !important;
+             transform: translate(50%);
              padding: 0 !important;
              text-align: center;
            }
 
            .btn-partners {
-             width: 99.1% !important;
-             margin: 0.5% 0 !important;
+             width: 74.1% !important;
+             margin: 0.5% 50% !important;
+             transform: translate(50%);
              text-align: center;
            }
 
            #btnEventCreate {
              width: 30% !important;
-             margin: 0 auto !important;
+             //margin: 0 auto !important;
            }
 
          }
