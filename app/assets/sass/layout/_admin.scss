@@ -12,6 +12,7 @@
   }
   .wdw-login{
 
+    margin-top: $gutter-h-double;
     text-align: center;
     #lblAdminLogin {
 
@@ -278,6 +279,15 @@
     border-radius: 10px;
     padding: 5%;
     text-align: center;
+    margin-top: 10%;
+
+    .fa-times {
+      color: white;
+      font-size: 2em;
+      position: absolute;
+      top: 3%;
+      right: 3%;
+    }
 
     #partner-modal-top > h2 {
       color: white;
@@ -287,11 +297,33 @@
 
       .partner-modal-form {
 
+        .partner-wrap {
+          /*display: flex;
+          flex-direction: row;
+          justify-content: space-between;*/
+
+          display: flex;
+          flex-direction: row;
+          flex-wrap: wrap;
+
+          .partner-modal-item {
+            display: flex;
+            flex-direction: row;
+            width: 20%;
+            margin-top: $gutter-h;
+          }
+
+
+        }
+
         input[type=submit]{
           border: none;
           background-color: $tertiaryColor;
           padding: 1.5% 3%;
           border-radius: 10px;
+          margin-top: 10%;
+          color: white;
+          font-size: 1.25em;
         }
 
       }
@@ -299,6 +331,8 @@
       
       .partner-modal-item > h5 {
         color: white;
+        margin: 0;
+        margin-left: 5%;
       }
       
       
