@@ -13,7 +13,7 @@ $headlineFont : 'Open Sans', sans-serif;
 /* -- NOTE: These colors are not set in stone, just something random I had saved -- */
 $primaryColor : #FFFFFF;
 $secondaryColor : #3498db;
-$tertiaryColor : #2ecc71;
+$tertiaryColor : darken($secondaryColor, 10);
 $textColor : #222222;
 $black : #222222;
 
