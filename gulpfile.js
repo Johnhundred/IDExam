@@ -7,9 +7,10 @@ var uglify = require('gulp-uglify');
 var gulpIf = require('gulp-if');
 var cssnano = require('gulp-cssnano');
 var runSequence = require('run-sequence');
-var imageMin = require('gulp-imagemin');
+var imagemin = require('gulp-imagemin');
 var del = require('del');
 var htmlMin = require('gulp-htmlmin');
+var imageminJpegRecompress = require('imagemin-jpeg-recompress');
 
 // Following tasks are generally for development purposes. Sass task is also used for building the dist.
 
@@ -62,10 +63,17 @@ gulp.task("templateHandler", function(){
 
 gulp.task("imageHandler", function(){
     return gulp.src('app/assets/img/**/*.+(png|jpg|jpeg|gif|svg)')
-        .pipe(imageMin({
-            interlaced: true,
-            verbose: true
-        }))
+        .pipe(imagemin([
+            imagemin.gifsicle(),
+            imageminJpegRecompress({
+                loops:4,
+                min: 50,
+                max: 95,
+                quality:'high'
+            }),
+            imagemin.optipng(),
+            imagemin.svgo()
+        ]))
         .pipe(gulp.dest('dist/assets/img'))
 });
 
