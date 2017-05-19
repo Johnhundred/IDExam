@@ -182,6 +182,11 @@
        div:first-child {
          width: 100% !important;
          padding: 3% 0 !important;
+
+         input {
+           width: 75% !important;
+         }
+
        }
 
        div:nth-child(2){
@@ -190,6 +195,7 @@
 
          div:first-child {
            flex-direction: column !important;
+           position: relative;
 
            input {
              width: 75% !important;
@@ -208,10 +214,27 @@
 
            #btnEventCreate {
              width: 30% !important;
+             position: absolute;
+             bottom: -58%;
+             right: 0;
+
              //margin: 0 auto !important;
            }
 
+           .btnEventCreate {
+             width: 30% !important;
+             position: absolute;
+             bottom: -58%;
+             right: 0;
+           }
+
          }
+
+         div:nth-child(2) > textarea {
+           width: 99% !important;
+         }
+
+
        }
 
 
