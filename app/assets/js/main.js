@@ -322,7 +322,9 @@ jQuery("document").ready(function() {
                         console.log("Free");
                         var iCounter5 = searchHits.length;
                         for(var c = 0; c < iCounter5; c++){
-                            if((Number(searchHits[c].price) && Number(searchHits[c].price) > 0) || searchHits[c].price != "Free" || searchHits[c].price != "free"){
+                            var sCompare = "" + searchHits[c].price;
+                            sCompare = sCompare.toLowerCase();
+                            if((Number(searchHits[c].price) && Number(searchHits[c].price) > 0) || sCompare != "free"){
                                 searchHits.splice(c, 1);
                                 c--;
                                 iCounter5--;
