@@ -3,6 +3,208 @@
 // Mobile (portrait)
 @media screen and (max-width: $screen-xs-max) {
 
+ /* --- INDEX --- */
+
+  .navbar-front {
+
+    h1 {
+      font-size: 1.5em;
+    }
+
+    ul {
+
+      margin-top: 1.5vh;
+
+      li {
+      font-size: 0.5em;
+      }
+    }
+  }
+
+  .front-page {
+
+    h2 {
+      padding: 5%;
+      font-size: 2.5em;
+    }
+
+    .search-bar {
+      color: green;
+      button {
+        width: 20%;
+      }
+
+    }
+  }
+
+
+  /* --- NAVBAR --- */
+
+  .navbar {
+
+    padding: 1% 5% !important;
+
+    ul {
+
+      margin-top: 1.5vh;
+
+      li {
+        font-size: 0.8em;
+      }
+    }
+  }
+
+  /* --- GLOBAL --- */
+
+  .title-container {
+    width: 100% !important;
+  }
+
+  .content-container {
+    width: 100%;
+    margin-left: 0;
+    transform: translate(0);
+  }
+
+  /* --- CONTACT & ABOUT --- */
+
+  .contact-container {
+    margin-bottom: $gutter-v-double;
+  }
+
+  .about-container > p {
+    padding: 5%;
+  }
+
+
+  /* --- EVENTS --- */
+
+  .events-container {
+
+    .filter-search {
+      display: none;
+    }
+
+    .results-container {
+      width: 100% !important;
+      padding: 5%;
+      color: aqua;
+    }
+  }
+
+  /* --- PARTNERS --- */
+
+  .partner-container {
+
+    padding: 0 3%;
+    width: 94%;
+
+    .partner-card {
+      width: 30%;
+    }
+
+  }
+
+  /* --- Specific Event & Partner --- */
+
+  .partner-title > h2 {
+    font-size: 1.5em !important;
+  }
+
+  .partner-content {
+    flex-direction: column !important;
+    width: 94% !important;
+    padding: 0px 3% !important;
+    text-align: center;
+
+    .partner-desc {
+      width: 100% !important;
+
+    }
+
+    .partner-info {
+      width: 100% !important;
+
+      h3 {
+        margin-bottom: $gutter-h;
+      }
+    }
+  }
+
+  /* --- ADMIN --- */
+
+  .wdw-admin-picker > ul {
+    padding: 0;
+
+    li {
+      padding: 1.5% 3% !important;
+    }
+  }
+
+  .wdw-admin-list {
+
+    #lblAdminCreate {
+      width: 80% !important;
+
+      input[type=submit]{
+        width: 30% !important;
+      }
+    }
+  }
+
+  .admin-list-item {
+    h3:nth-child(2){
+      display: none;
+    }
+
+    i {
+      margin-top: 5px;
+    }
+  }
+
+  .wdw-event-create, .event-item {
+
+    color: green;
+     form {
+       flex-direction: column !important;
+
+       div:first-child {
+         width: 100% !important;
+         padding: 3% 0 !important;
+       }
+
+       div:nth-child(2){
+         width: 100% !important;
+
+
+         div:first-child {
+           flex-direction: column !important;
+
+           input {
+             width: 100% !important;
+             margin: 0.5% 0 !important;
+             padding: 0 !important;
+             text-align: center;
+           }
+
+           .btn-partners {
+             width: 99.1% !important;
+             margin: 0.5% 0 !important;
+             text-align: center;
+           }
+
+           #btnEventCreate {
+             width: 30% !important;
+             margin: 0 auto !important;
+           }
+
+         }
+       }
+
+
+     }
+  }
+
 }
 
 // Breakpoint for mobile landscape/tablet portrait as well?
