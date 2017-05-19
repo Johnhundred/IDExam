@@ -322,7 +322,7 @@ jQuery("document").ready(function() {
                         console.log("Free");
                         var iCounter5 = searchHits.length;
                         for(var c = 0; c < iCounter5; c++){
-                            if(Number(searchHits[c].price) && Number(searchHits[c].price) > 0){
+                            if((Number(searchHits[c].price) && Number(searchHits[c].price) > 0) || searchHits[c].price != "Free" || searchHits[c].price != "free"){
                                 searchHits.splice(c, 1);
                                 c--;
                                 iCounter5--;
@@ -415,6 +415,10 @@ jQuery("document").ready(function() {
             sHtml = sHtml.replace("{{date}}", searchHits[a].date);
             sHtml = sHtml.replace("{{price}}", searchHits[a].price);
             sHtml = sHtml.replace("{{location}}", searchHits[a].location);
+        }
+
+        if(sHtml == ""){
+            sHtml = "<h5 class='event-list-error'>No results.</h5>";
         }
 
         $(".results-container").empty().append(sHtml);
