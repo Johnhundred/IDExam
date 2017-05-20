@@ -13,11 +13,25 @@ h1,h2,h3,h4,h5,h6 {
 p,input,footer,button,label,ul,li,pre,span {
   font-family: $bodyFont;
   color: $textColor;
+  letter-spacing: 1px;
+  line-height: 1.25;
 }
 
 pre {
   white-space: pre-wrap;
   word-wrap: break-word;
+}
+
+input[type=checkbox] {
+  cursor: pointer;
+}
+
+button{
+  cursor: pointer;
+}
+
+.fa {
+  cursor: pointer;
 }
 
 .margin-center {

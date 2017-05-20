@@ -849,7 +849,7 @@ jQuery("document").ready(function() {
             }
         }
 
-        $("#wdw-partner-modal").fadeOutgit();
+        $("#wdw-partner-modal").fadeOut();
     }
 
     function editItem(oElement){

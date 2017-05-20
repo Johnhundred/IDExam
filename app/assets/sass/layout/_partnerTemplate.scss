@@ -55,12 +55,14 @@
   .event-partners {
     display: flex;
     flex-direction: row;
-    justify-content: center;
+    flex-wrap: wrap;
+    justify-content: flex-start;
 
 
     img {
       width: 20%;
       height: 100%;
+      margin: 2%;
 
     }
   }

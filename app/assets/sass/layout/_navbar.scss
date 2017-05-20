@@ -14,6 +14,7 @@
     a {
       color: white;
       text-decoration: none;
+
     }
   }
 
@@ -53,5 +54,11 @@
   h2 {
     margin: 0;
     font-size: 2.5em;
+    color: white;
+    background-color: $tertiaryColor;
+    border-radius: 10px;
+    display: inline-block;
+    padding: 3% 6%;
+    filter: none;
   }
 }

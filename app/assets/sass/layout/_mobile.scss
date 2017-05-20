@@ -241,11 +241,150 @@
      }
   }
 
+  #partner-modal-content {
+    //width: 80% !important;
+    width: 70vw !important;
+    height: auto !important;
+    margin-top: 65% !important;
+    transform: translate(-50%);
+
+    .partner-modal-item {
+      width: 50% !important;
+    }
+  }
+
 }
 
 // Breakpoint for mobile landscape/tablet portrait as well?
 
 // Tablet/small laptop
 @media screen and (max-width: $screen-md-max) {
+
+  /* --- EVENTS --- */
+
+  .filter-search {
+    display: none;
+  }
+
+  .events-container > .results-container {
+    width: 100%;
+  }
+
+  /* --- ADMIN --- */
+
+  .wdw-login {
+    width: 100%;
+  }
+
+  .wdw-admin-picker > ul {
+    padding: 0;
+
+    li {
+      padding: 1.5% 3% !important;
+    }
+  }
+
+  .wdw-admin-list {
+
+    #lblAdminCreate {
+      width: 80% !important;
+
+      input[type=submit]{
+        width: 30% !important;
+      }
+    }
+  }
+
+  .admin-list-item {
+    h3:nth-child(2){
+      display: none;
+    }
+
+    i {
+      margin-top: 5px;
+    }
+  }
+
+  .wdw-event-create, .event-item {
+
+    color: green;
+    padding: 9vh 6vw !important;
+
+    .delete-item {
+      top: 2% !important;
+    }
+
+    form {
+      flex-direction: column !important;
+
+      div:first-child {
+        width: 100% !important;
+        padding: 3% 0 !important;
+
+        input {
+          width: 75% !important;
+        }
+
+      }
+
+      div:nth-child(2){
+        width: 100% !important;
+
+
+        div:first-child {
+          flex-direction: column !important;
+          position: relative;
+
+          input {
+            width: 75% !important;
+            margin: $gutter-h 50% !important;
+            transform: translate(50%);
+            padding: 0 !important;
+            text-align: center;
+          }
+
+          .btn-partners {
+            width: 74.1% !important;
+            margin: 0.5% 50% !important;
+            transform: translate(50%);
+            text-align: center;
+          }
+
+          #btnEventCreate {
+            width: 30% !important;
+            position: absolute;
+            bottom: -58%;
+            right: 0;
+
+            //margin: 0 auto !important;
+          }
+
+          .btnEventCreate {
+            width: 30% !important;
+            position: absolute;
+            bottom: -58%;
+            right: 0;
+          }
+
+        }
+
+        div:nth-child(2) > textarea {
+          width: 99% !important;
+        }
+
+
+      }
+
+
+    }
+  }
+
+
+  #partner-modal-content {
+    /*width: 70vw ;
+    height: auto ;
+    margin-top: 50% !important;
+    transform: translate(-50%);*/
+  }
 
 }
