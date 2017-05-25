@@ -4,16 +4,17 @@
 
 
 .contact-title {
-  background-image: url("../img/contact.jpg");
-  background-size: cover;
+  background-image: url("../img/contact2.jpeg");
+  //background-size: cover;
+  background-size: 100%;
   background-position: center;
+  //background-position-y: 20%;
 }
 
 .about-title {
-  background-image: url("../img/about.jpg");
+  background-image: url("../img/about2.jpeg");
   background-size: cover;
-  background-position: center;
-  filter: grayscale(100%);
+  background-position-y: 25%;
 }
 
 .contact-container {

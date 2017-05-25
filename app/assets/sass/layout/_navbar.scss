@@ -16,6 +16,10 @@
       text-decoration: none;
 
     }
+
+    a:hover {
+      color: $tertiaryColor;
+    }
   }
 
   ul {
@@ -38,7 +42,13 @@
         text-decoration: none;
 
       }
+
+      a:hover {
+        color: $tertiaryColor;
+      }
     }
+
+
   }
 }
 
@@ -58,7 +68,7 @@
     background-color: $tertiaryColor;
     border-radius: 10px;
     display: inline-block;
-    padding: 3% 6%;
+    padding: 1.5% 3%;
     filter: none;
   }
 }

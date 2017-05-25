@@ -3,10 +3,10 @@
 /* --------------- ADMIN --------------- */
 
 .admin-title {
-  background-image: url("../img/admin.jpg");
+  background-image: url("../img/admin3.jpeg");
   background-size: cover;
-  background-position: center;
-  filter: grayscale(100%);
+
+  background-position-y: 55%;  //filter: grayscale(100%);
 }
 
 .active {
@@ -81,7 +81,7 @@
         a {
 
           font-family: $bodyFont;
-          color: $black;
+          color: white;
           text-decoration: none;
           font-size: 1.5em;
         }

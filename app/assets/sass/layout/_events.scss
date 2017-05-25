@@ -3,10 +3,10 @@
 /* --------------- EVENTS --------------- */
 
 .events-title {
-  background-image: url("../img/events.jpg");
+  background-image: url("../img/events3.jpeg");
   background-size: cover;
   background-position: center;
-  filter: grayscale(100%);
+  background-color: white;
 }
 
 .events-container {
@@ -34,7 +34,7 @@
       button {
         vertical-align: top;
         margin-left: -5px;
-        background-color: #3498db;
+        background-color: $secondaryColor;
         border: none;
         padding: 3px;
         /* font-size: 2em; */
@@ -48,7 +48,7 @@
 
     .filter-list {
 
-      background-color: $secondaryColor;
+      background-color: $secondaryColor;;
       width: 60%;
       padding: 3%;
 
@@ -58,8 +58,11 @@
 
       ul{
         padding-left: 5%;
+        color: white;
+
         li {
           list-style: none;
+          color: white;
 
           input[type=checkbox] {
             margin-right: 5%;

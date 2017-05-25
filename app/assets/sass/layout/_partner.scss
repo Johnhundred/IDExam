@@ -3,10 +3,12 @@
 /* --------------- PARTNERS --------------- */
 
 .partners-title {
-  background-image: url("../img/partners.jpg");
+  background-image: url("../img/partners2.jpg");
   background-size: cover;
-  background-position: center;
-  filter: grayscale(100%);
+  //background-position: center;
+
+  background-position-y: 25%;
+  //filter: grayscale(100%);
 }
 
 
