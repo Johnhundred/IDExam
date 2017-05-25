@@ -530,6 +530,8 @@ jQuery("document").ready(function() {
         for(var i = 0; i < iCounter; i++){
             if(jEvents.events[i].id == sId){
                 jEvents.events.splice(i, 1);
+                i--;
+                iCounter--;
             }
         }
         localStorage.sEvents = JSON.stringify(jEvents);
@@ -568,6 +570,8 @@ jQuery("document").ready(function() {
         for(var i = 0; i < iCounter; i++){
             if(jPartners.partners[i].id == sId){
                 jPartners.partners.splice(i, 1);
+                i--;
+                iCounter--;
             }
         }
         localStorage.sPartners = JSON.stringify(jPartners);
