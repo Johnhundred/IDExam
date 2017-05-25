@@ -30,6 +30,14 @@ button{
   cursor: pointer;
 }
 
+footer {
+  height: 5px;
+  width: 100vw;
+  background-color: $secondaryColor;
+  position: fixed;
+  bottom: 0;
+}
+
 .fa {
   cursor: pointer;
 }

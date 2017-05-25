@@ -12,10 +12,11 @@ $headlineFont : 'Open Sans', sans-serif;
 
 /* -- NOTE: These colors are not set in stone, just something random I had saved -- */
 $primaryColor : #FFFFFF;
-$secondaryColor : #3498db;
-$tertiaryColor : darken($secondaryColor, 10);
+$secondaryColor : #414141;
+$tertiaryColor : #3498db;
+        //darken($secondaryColor, 10);
 $textColor : #222222;
-$black : #222222;
+$black : #414141;
 
 
 /* ----- GUTTERS ----- */
