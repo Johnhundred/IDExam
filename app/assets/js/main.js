@@ -393,18 +393,7 @@ jQuery("document").ready(function() {
                 }
             }
 
-            var sPartnersOutput = "";
-            for(var z = 0; z < aPartners.length; z++){
-                var iC = aPartners.length;
-                if(z < (iC - 1)){
-                    //not last
-                    sPartnersOutput += aPartners[z] + " | ";
-                } else {
-                    //last
-                    sPartnersOutput += aPartners[z];
-                }
-            }
-            sHtml = sHtml.replace("{{partners}}", sPartnersOutput);
+            sHtml = sHtml.replace("{{partners}}", searchHits[a].organizer);
 
             var sDesc = "";
             if(searchHits[a].description.length > 255){
