@@ -436,6 +436,22 @@ jQuery("document").ready(function() {
 
 
 
+    var sSetupEvents = '{"events":[{"id":"ffad2dee1495749682092","img":"https://cdn.evbuc.com/eventlogos/1546045/slogo.png","title":"React Event","organizer":"TechX","date":"2017-05-27","price":"free","location":"Copenhagen","partners":{"id":"1","partners":["f8527ac11495749521898"]},"description":"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus vitae hendrerit arcu.Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus vitae hendrerit arcu."},{"id":"1c17c3d21495749756172","img":"https://cdn.evbuc.com/eventlogos/1546045/slogo.png","title":"The Player of Games Meetup","organizer":"Foo Cafe","date":"2017-07-15","price":"100","location":"Roskilde","partners":{"id":"1","partners":["0742ce3b1495749447156"]},"description":"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus vitae hendrerit arcu.Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus vitae hendrerit arcu."},{"id":"7051a0be1495749839059","img":"https://cdn.evbuc.com/eventlogos/1546045/slogo.png","title":"The Dapp version","organizer":"KEA","date":"2017-07-20","price":"50","location":"Copenhagen","partners":{"id":"1","partners":["a9dfd2fc1495749409095"]},"description":"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus vitae hendrerit arcu.Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus vitae hendrerit arcu."},{"id":"91d52d5d1495749925354","img":"https://cdn.evbuc.com/eventlogos/1546045/slogo.png","title":"Scala Coding Session","organizer":"ITU","date":"2017-07-28","price":"free","location":"Copenhagen","partners":{"id":"1","partners":["a9dfd2fc1495749409095","0742ce3b1495749447156"]},"description":"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus vitae hendrerit arcu.Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus vitae hendrerit arcu."},{"id":"fda9159a1495750006213","img":"https://cdn.evbuc.com/eventlogos/1546045/slogo.png","title":"Copenhagen AngularJS Meet-up","organizer":"Lokalist","date":"2017-08-18","price":"free","location":"Copenhagen","partners":{"id":"1","partners":["0742ce3b1495749447156","f8527ac11495749521898"]},"description":"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus vitae hendrerit arcu.Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus vitae hendrerit arcu."}]}';
+    var sSetupPartners = '{"partners":[{"id":"a9dfd2fc1495749409095","img":"http://particledesigns.dk/img/PreloaderLogo.png","ceo":"Ralf John","website":"particledesigns.dk","headquarters":"Copenhagen","description":"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus vitae hendrerit arcu.Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus vitae hendrerit arcu.","name":"Particle Designs"},{"id":"0742ce3b1495749447156","img":"https://cdn.evbuc.com/eventlogos/1546045/slogo.png","ceo":"Jesper Jespersen","website":"jesper.com","headquarters":"Roskilde","description":"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus vitae hendrerit arcu.Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus vitae hendrerit arcu.Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus vitae hendrerit arcu.Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus vitae hendrerit arcu.","name":"Jesper AS"},{"id":"f8527ac11495749521898","img":"https://cdn.evbuc.com/eventlogos/1546045/slogo.png","ceo":"Tegan Spinner","website":"lokalist.dk","headquarters":"Copenhagen","description":"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus vitae hendrerit arcu.Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus vitae hendrerit arcu.Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus vitae hendrerit arcu.Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus vitae hendrerit arcu.","name":"Lokalist"}]}';
+    function handleEventAndPartnerSetup(){
+        if (localStorage.getItem("sEvents") === null) {
+            localStorage.sEvents = sSetupEvents;
+        }
+
+        if (localStorage.getItem("sPartners") === null) {
+            localStorage.sPartners = sSetupPartners;
+        }
+    }
+
+    handleEventAndPartnerSetup();
+
+
+
     // FUNCTIONS - ADMIN
 
     // If no admins exist, create standard admin user, otherwise load admins from localStorage
