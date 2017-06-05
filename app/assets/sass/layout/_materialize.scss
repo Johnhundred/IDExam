@@ -1,8 +1,10 @@
 /* --------------- MATERIALIZE COMPENSATION --------------- */
 
-[type="checkbox"]:not(:checked), [type="checkbox"]:checked {
-  position: initial !important;
-  opacity: 1 !important;
+aside.filter-search {
+  [type="checkbox"]:not(:checked), [type="checkbox"]:checked {
+    position: initial !important;
+    opacity: 1 !important;
+  }
 }
 
 // Materialize input field styling
