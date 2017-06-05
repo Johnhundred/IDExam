@@ -81,6 +81,11 @@
   .results-container {
     width: 70%;
 
+    h5 {
+      text-align: center;
+      margin-top: $gutter-v-double;
+    }
+
     .event-result {
       margin-top: $gutter-v-double;
       text-align: center;

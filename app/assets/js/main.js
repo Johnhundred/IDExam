@@ -18,7 +18,7 @@ jQuery("document").ready(function() {
     var jPartners = {"partners":[]};
     var sPartnerTemplate = '<div class="partner-item round-corners"><form class="lblPartnerCreate"><div><input class="lblPartnerImage" type="text" value="{{img}}"></div><div><div><input class="lblPartnerName" type="text" value="{{name}}"><input class="lblPartnerCEO" type="text" value="{{ceo}}"><input class="lblPartnerWebsite" type="text" value="{{website}}"><input class="lblPartnerHeadquarters" type="text" value="{{headquarters}}"><input class="btnPartnerCreate" type="submit" value="SUBMIT"></div><div><textarea class="lblPartnerDescription">{{description}}</textarea></div></div><input class="lblPartnerId" type="hidden" value="{{id}}"></form><i class="fa fa-trash-o delete-item" aria-hidden="true"></i></div>';
 
-    var sPartnerModalTemplate = '<div class="partner-modal-item"><div><input type="checkbox" data-partner-id="{{partnerId}}" {{checked}}></div><h5>{{partner}}</h5></div>';
+    var sPartnerModalTemplate = '<div class="partner-modal-item"><input id="{{binder}}" type="checkbox" data-partner-id="{{partnerId}}" {{checked}}><label for="{{binder}}">{{partner}}</label></div>';
 
     handleAdminSetup();
 
@@ -133,6 +133,10 @@ jQuery("document").ready(function() {
     });
 
     $(".events-container .search-bar button").click(function(){
+        runSearch();
+    });
+
+    $(".events-container .search-bar").on("keyup", "input", function(){
         runSearch();
     });
 
@@ -276,6 +280,7 @@ jQuery("document").ready(function() {
         }
 
         getEvents();
+        // Copy, rather than refer to, the jEvents variable
         var originalEvents = jQuery.extend(true, {}, jEvents);
         var searchHits = [];
         var iCounter2 = originalEvents.events.length;
@@ -812,8 +817,11 @@ jQuery("document").ready(function() {
         var iCounter2 = jPartners.partners.length;
         var iCounter3 = aCurrentPartners.length;
         for(var j = 0; j < iCounter2; j++){
+            var sBinder = generateStringId();
             sHtml += sPartnerModalTemplate.replace("{{partnerId}}", jPartners.partners[j].id);
             sHtml = sHtml.replace("{{partner}}", jPartners.partners[j].name);
+            sHtml = sHtml.replace("{{binder}}", sBinder);
+            sHtml = sHtml.replace("{{binder}}", sBinder);
 
             // If aCurrentPartners list has any IDs, match those IDs to partners in the generated HTML,
             // and check their checkboxes

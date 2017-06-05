@@ -1,8 +1,10 @@
 /* --------------- MATERIALIZE COMPENSATION --------------- */
 
-[type="checkbox"]:not(:checked), [type="checkbox"]:checked {
-  position: initial !important;
-  opacity: 1 !important;
+aside.filter-search {
+  [type="checkbox"]:not(:checked), [type="checkbox"]:checked {
+    position: initial !important;
+    opacity: 1 !important;
+  }
 }
 
 // Materialize input field styling
@@ -25,7 +27,7 @@ input[type=text]:focus, input[type=password]:focus {
   }
 }
 
-#lblEventCreate > div:nth-child(1), .lblEventCreate > div:nth-child(1) {
+#lblPartnerCreate > div:nth-child(1), #lblEventCreate > div:nth-child(1), .lblPartnerCreate > div:nth-child(1), .lblEventCreate > div:nth-child(1) {
   input[type=text]:focus {
     border-bottom: 1px solid $secondaryColor !important;
     box-shadow: 0px 1px 0px -1px $secondaryColor !important;
