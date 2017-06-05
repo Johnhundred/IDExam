@@ -32,6 +32,25 @@
         text-align: center;
       }
 
+
+
+      input[type=text]::-webkit-input-placeholder {
+        color: $secondaryColor;
+      }
+
+      input[type=text]::-webkit-input-placeholder { /* Chrome/Opera/Safari */
+        color: $secondaryColor;
+      }
+      input[type=text]::-moz-placeholder { /* Firefox 19+ */
+        color: $secondaryColor;
+      }
+      input[type=text]:-ms-input-placeholder { /* IE 10+ */
+        color: $secondaryColor;
+      }
+      input[type=text]:-moz-placeholder { /* Firefox 18- */
+        color: $secondaryColor;
+      }
+
       button {
         vertical-align: top;
         //margin-left: -5px;
