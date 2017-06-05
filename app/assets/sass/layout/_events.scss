@@ -23,22 +23,24 @@
 
     .search-bar {
 
-      width: 66%;
+      width: 60%;
       text-align: center;
 
       input[type=text] {
         margin-bottom: 5%;
-        width: 60%;
+        width: 70%;
+        text-align: center;
       }
 
       button {
         vertical-align: top;
-        margin-left: -5px;
-        background-color: $secondaryColor;
+        //margin-left: -5px;
+        background-color: $tertiaryColor;
         border: none;
-        padding: 3px;
+        //padding: 3px;
         /* font-size: 2em; */
         color: white;
+        margin-bottom: 3%;
       }
     }
   }
