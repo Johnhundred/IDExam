@@ -5,3 +5,13 @@
   opacity: 1 !important;
 }
 
+// Materialize input field styling
+input[type=text], input[type=password] {
+  border-bottom: 1px solid $secondaryColor;
+}
+
+input[type=text]:focus, input[type=password]:focus {
+  border-bottom: 1px solid $tertiaryColor;
+  box-shadow: 0px 1px 0px 0px $tertiaryColor !important;
+}
+

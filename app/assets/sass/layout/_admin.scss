@@ -17,6 +17,9 @@
   .wdw-admin-picker {
     display: none;
   }
+  input[type=text], input[type=password] {
+    border-bottom: 1px solid $primaryColor;
+  }
   .wdw-login{
 
     margin-top: $gutter-h-double;
