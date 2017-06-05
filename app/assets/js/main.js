@@ -136,6 +136,10 @@ jQuery("document").ready(function() {
         runSearch();
     });
 
+    $(".events-container .search-bar").on("keyup", "input", function(){
+        runSearch();
+    });
+
     $(document).on("click", ".event-result button", function(){
         fRedirectToEvent($(this).parent().attr("data-event-id"));
     });
