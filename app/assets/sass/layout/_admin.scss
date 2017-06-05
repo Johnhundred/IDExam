@@ -34,7 +34,7 @@
         margin: 2% 0;
         width: 50%;
         text-align: center;
-
+        color: white;
         font-size: 1.25em;
       }
 
@@ -44,6 +44,7 @@
         background-color: $tertiaryColor;
         border: none;
         cursor: pointer;
+        color: white;
       }
 
       span {
@@ -124,7 +125,7 @@
       align-items: center;
       padding: 1%;
       margin-top: 4vh;
-      background-color: #3498db;
+      background-color: $secondaryColor;
       width: 60%;
 
       input {
@@ -132,6 +133,7 @@
         width: 50%;
         text-align: center;
         font-size: 1.25em;
+        color: white;
       }
 
       input[type=submit] {
@@ -140,6 +142,7 @@
         background-color: $tertiaryColor;
         border: none;
         cursor: pointer;
+        color: white;
       }
 
 
@@ -201,6 +204,7 @@
               margin: 0 0.5%;
               border: none;
               padding: 3px 6px;
+              color: white;
             }
 
             input::-webkit-inner-spin-button {
@@ -213,6 +217,7 @@
               width: 15%;
               padding: 3px 6px;
               cursor: pointer;
+              color: white;
             }
 
             .btn-partners {
