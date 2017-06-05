@@ -59,3 +59,13 @@ footer {
   transform: translate(-50%);
 }
 
+
+input[type=text] {
+  border-bottom: 1px solid $tertiaryColor;
+}
+
+input[type=text]:focus {
+  border-bottom: 1px solid $tertiaryColor;
+  box-shadow: 0 1px 0 0 $tertiaryColor !important;
+}
+

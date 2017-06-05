@@ -1,2 +1,7 @@
 /* --------------- MATERIALIZE COMPENSATION --------------- */
 
+[type="checkbox"]:not(:checked), [type="checkbox"]:checked {
+  position: initial !important;
+  opacity: 1 !important;
+}
+
