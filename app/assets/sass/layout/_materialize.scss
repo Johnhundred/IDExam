@@ -5,3 +5,30 @@
   opacity: 1 !important;
 }
 
+// Materialize input field styling
+input[type=text], input[type=password] {
+  border-bottom: 1px solid $secondaryColor;
+}
+
+input[type=text]:focus, input[type=password]:focus {
+  border-bottom: 1px solid $tertiaryColor;
+  box-shadow: 0px 1px 0px -1px $tertiaryColor !important;
+}
+
+#wdw-admin {
+  input[type=text], input[type=password], input[type=date] {
+    border-bottom: 1px solid $primaryColor;
+  }
+  input[type=text]:focus, input[type=password]:focus, input[type=date]:focus {
+    border-bottom: 1px solid $tertiaryColor;
+    box-shadow: 0px 1px 0px -1px $tertiaryColor !important;
+  }
+}
+
+#lblEventCreate > div:nth-child(1), .lblEventCreate > div:nth-child(1) {
+  input[type=text]:focus {
+    border-bottom: 1px solid $secondaryColor !important;
+    box-shadow: 0px 1px 0px -1px $secondaryColor !important;
+  }
+}
+
