@@ -17,9 +17,6 @@
   .wdw-admin-picker {
     display: none;
   }
-  input[type=text], input[type=password] {
-    border-bottom: 1px solid $primaryColor;
-  }
   .wdw-login{
 
     margin-top: $gutter-h-double;
@@ -202,7 +199,7 @@
             input {
               width: 25%;
               margin: 0 0.5%;
-              border: none;
+              color: white;
               padding: 3px 6px;
             }
 
@@ -239,6 +236,7 @@
               border: none;
               font-size: 16px;
               height: 8vh;
+              color: white;
             }
           }
         }
@@ -255,6 +253,7 @@
         input {
           width: 60%;
           text-align: center;
+          color: white;
         }
 
       }
