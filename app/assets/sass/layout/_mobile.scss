@@ -86,7 +86,7 @@
     }
 
     .results-container {
-      width: 90% !important;
+      width: 100% !important;
       padding: 5%;
       color: aqua;
     }
@@ -278,6 +278,10 @@
 
   .wdw-admin-picker > ul {
     padding: 0;
+
+    h3 {
+      font-size: 2em;
+    }
 
     li {
       padding: 1.5% 3% !important;

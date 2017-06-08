@@ -1,5 +1,9 @@
 /* --------------- MATERIALIZE COMPENSATION --------------- */
 
+nav ul a:hover {
+  background-color: transparent;
+}
+
 aside.filter-search {
   [type="checkbox"]:not(:checked), [type="checkbox"]:checked {
     position: initial !important;

@@ -28,7 +28,7 @@ jQuery("document").ready(function() {
         '<h3>{{partners}}</h3>' +
         '<pre>{{description}}</pre>' +
         '<p class="event-info">{{date}} | {{price}} | {{location}}</p>' +
-        '<button>MORE INFORMATION</button>' +
+        '<button class="waves-effect">MORE INFORMATION</button>' +
         '</div>';
 
 
