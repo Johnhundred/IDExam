@@ -109,6 +109,7 @@
       h3 {
         margin: 0;
         color: $primaryColor;
+        font-size: 2em;
       }
       i {
         margin-top: 0.5%;
@@ -118,6 +119,11 @@
   }
   .wdw-admin-list {
     text-align: center;
+
+    h4 {
+      margin-top: 5%;
+      margin-bottom: 3%;
+    }
 
     #lblAdminCreate {
       display: flex;
@@ -162,6 +168,8 @@
     width: 100%;
     h4 {
       text-align: center;
+      margin-top: 5%;
+      margin-bottom: 3%;
     }
 
     .partner-item {
@@ -340,13 +348,25 @@
           border: none;
           background-color: $tertiaryColor;
           padding: 1.5% 3%;
-          border-radius: 10px;
           margin-top: 10%;
           color: white;
           font-size: 1.25em;
           cursor: pointer;
         }
 
+      }
+
+      .partner-modal-item > label {
+        color: white;
+      }
+
+      .partner-modal-item > input[type="checkbox"]:not(.filled-in)+label:after {
+        border: 2px solid white ;
+      }
+
+      .partner-modal-item > input[type="checkbox"]:checked+label:before{
+        border-right: 2px solid $tertiaryColor !important;
+        border-bottom: 2px solid $tertiaryColor !important;
       }
 
       
@@ -360,6 +380,17 @@
     }
   }
 
+}
+
+.sweet-alert {
+
+  .cancel {
+    border-radius: 0;
+  }
+
+  .confirm {
+    border-radius: 0;
+  }
 }
 
 /*
