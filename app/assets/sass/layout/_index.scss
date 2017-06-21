@@ -5,7 +5,7 @@
   display: flex;
   flex-direction: row;
   justify-content: space-between;
-  background-color: $secondaryColor;
+  background-color: $tertiaryColor;
 
   h1 {
     margin: 0;
@@ -19,7 +19,8 @@
   }
 
   ul {
-    display: flex;
+    display: none;
+    //display: flex;
     flex-direction: row;
     align-items: center;
     justify-content: flex-end;
@@ -67,7 +68,7 @@
       height: 6.2vh;
       vertical-align: top;
       margin-left: -5px;
-      background-color: $secondaryColor;
+      background-color: $tertiaryColor;
       border: 1px solid black;
       font-size: 2em;
       color: white;
