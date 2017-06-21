@@ -76,3 +76,36 @@
 
   }
 }
+
+.category-list {
+  width: 100%;
+  margin-top: 5%;
+  margin-bottom: 5%;
+  ul {
+    list-style: none;
+    display: inline-block;
+    width: 100%;
+    padding: 0;
+    margin: 0;
+    margin-left: 8%;
+    li {
+      width:32.95%;
+      display: inline-block;
+      margin-bottom: 2%;
+      a {
+        font-size: 1.25em;
+        color: #222222;
+      }
+    }
+  }
+}
+
+.front-quote {
+  font-size: 1.25em;
+  color: #222222;
+  font-weight: bold;
+  .front-quote-author {
+    text-align: right;
+  }
+}
+
